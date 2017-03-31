@@ -13,7 +13,8 @@ export default {
 
 <style src="../static/css/animate.css"></style>
 <style src="../static/css/style.css" ></style>
-<style src="../static/css/colors/default.css"></style>
+<style src="../static/css/colors/megna.css"></style>
+<style src="../static/plugins/bower_components/dropify/dist/css/dropify.min.css"></style>
 
 <style>
 #app {
