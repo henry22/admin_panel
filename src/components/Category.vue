@@ -2,20 +2,20 @@
   <div class="category">
     <Navbar></Navbar>
     <Sidebar></Sidebar>
-    <Imageupload></Imageupload>
+    <Cardedit></Cardedit>
   </div>
 </template>
 
 <script>
 import Navbar from './Navbar'
 import Sidebar from './Sidebar'
-import Imageupload from './Imageupload'
+import Cardedit from './Cardedit'
 
 export default {
   components: {
     Navbar,
     Sidebar,
-    Imageupload
+    Cardedit
   }
 }
 </script>

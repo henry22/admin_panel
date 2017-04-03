@@ -1,16 +1,7 @@
 <template lang="html">
-  <div id="page-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-6 ol-md-6 col-xs-12">
-            <div class="white-box">
-              <h3 class="box-title">File Upload1</h3>
-              <label for="input-file-now">Your so fresh input file — Default version</label>
-              <input type="file" id="input-file-now" class="dropify" />
-            </div>
-        </div>
-      </div>
-    </div>
+  <div class="white-box">
+    <label for="input-file-now">Your so fresh input file — Default version</label>
+    <input type="file" id="input-file-now" class="dropify" />
   </div>
 </template>
 
@@ -63,5 +54,4 @@ export default {
 </script>
 
 <style lang="css">
-
 </style>
