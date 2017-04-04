@@ -1,5 +1,6 @@
 import LoginView from './components/Login'
 import CategoryView from './components/Category'
+import Cards from './components/Cards'
 
 const routes = [
   {
@@ -7,8 +8,12 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/',
+    path: '/category',
     component: CategoryView
+  },
+  {
+    path: '/cards',
+    component: Cards
   }
 ];
 

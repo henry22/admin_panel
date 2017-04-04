@@ -13,13 +13,13 @@
         <!-- /input-group -->
       </li>
       <li>
-        <a href="#" class="waves-effect active">
+        <a href="/category" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon="v"></i>
           <span class="hide-menu"> Category <span class="fa arrow"></span></span>
         </a>
       </li>
       <li>
-        <a href="#" class="waves-effect">
+        <a href="/cards" class="waves-effect">
           <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
           <span class="hide-menu"> Articles <span class="fa arrow"></span></span>
         </a>
