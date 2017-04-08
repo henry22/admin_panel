@@ -1,6 +1,7 @@
 import LoginView from './components/Login'
+import DashboardView from './components/Dashboard'
 import CategoryView from './components/Category'
-import Cards from './components/Cards'
+import CardsView from './components/Cards'
 
 const routes = [
   {
@@ -8,12 +9,18 @@ const routes = [
     component: LoginView
   },
   {
-    path: '/category',
-    component: CategoryView
-  },
-  {
-    path: '/cards',
-    component: Cards
+    path: '/',
+    component: DashboardView,
+    children: [
+      {
+        path: 'category',
+        component: CategoryView
+      },
+      {
+        path: 'cards',
+        component: CardsView
+      }
+    ]
   }
 ];
 

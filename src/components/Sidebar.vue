@@ -13,16 +13,22 @@
         <!-- /input-group -->
       </li>
       <li>
-        <a href="/category" class="waves-effect active">
+        <router-link to="/category" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon="v"></i>
-          <span class="hide-menu"> Category <span class="fa arrow"></span></span>
-        </a>
+          <span class="hide-menu"> Upload Article <span class="fa arrow"></span></span>
+        </router-link>
       </li>
       <li>
-        <a href="/cards" class="waves-effect">
-          <i data-icon=")" class="linea-icon linea-basic fa-fw"></i>
+        <router-link to="/cards" class="waves-effect active">
+          <i class="linea-icon linea-basic fa-fw" data-icon=")"></i>
           <span class="hide-menu"> Articles <span class="fa arrow"></span></span>
-        </a>
+        </router-link>
+      </li>
+      <li>
+        <router-link to="#" class="waves-effect active">
+          <i class="linea-icon linea-basic fa-fw" data-icon=""></i>
+          <span class="hide-menu"> Category <span class="fa arrow"></span></span>
+        </router-link>
       </li>
     </ul>
     </div>

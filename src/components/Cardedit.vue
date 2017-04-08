@@ -11,31 +11,10 @@
                     <h3 class="box-title">Article</h3>
                     <hr>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label class="control-label">Title</label>
                           <input type="text" id="firstName" class="form-control" placeholder="Article title">
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="control-label">Sub title</label>
-                          <input type="text" id="lastName" class="form-control" placeholder="Article sub title">
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="control-label">Category</label>
-                          <select class="form-control" data-placeholder="Choose a Category" tabindex="1">
-                            <option value="Category 1">Category 1</option>
-                            <option value="Category 2">Category 2</option>
-                            <option value="Category 3">Category 5</option>
-                            <option value="Category 4">Category 4</option>
-                          </select>
                         </div>
                       </div>
                     </div>
