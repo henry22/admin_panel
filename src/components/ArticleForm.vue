@@ -33,7 +33,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <h3 class="box-title m-t-20">Upload Image</h3>
-                        <Imageupload></Imageupload>
+                        <ImageUpload></ImageUpload>
                       </div>
                     </div>
                     <hr>
@@ -54,11 +54,11 @@
 </template>
 
 <script>
-import Imageupload from './Imageupload'
+import ImageUpload from './ImageUpload'
 
 export default {
   components: {
-    Imageupload
+    ImageUpload
   }
 }
 </script>

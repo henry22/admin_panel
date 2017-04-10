@@ -1,15 +1,15 @@
 <template lang="html">
   <div class="category">
-    <Cardedit></Cardedit>
+    <ArticleForm></ArticleForm>
   </div>
 </template>
 
 <script>
-import Cardedit from './Cardedit'
+import ArticleForm from './ArticleForm'
 
 export default {
   components: {
-    Cardedit
+    ArticleForm
   }
 }
 </script>

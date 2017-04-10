@@ -1,6 +1,6 @@
 import LoginView from './components/Login'
 import DashboardView from './components/Dashboard'
-import CategoryView from './components/Category'
+import ArticleUploadView from './components/ArticleUpload'
 import CardsView from './components/Cards'
 
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
     children: [
       {
         path: 'category',
-        component: CategoryView
+        component: ArticleUploadView
       },
       {
         path: 'cards',
