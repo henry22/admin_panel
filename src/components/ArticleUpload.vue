@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="category">
+  <div class="articleUpload">
     <ArticleForm></ArticleForm>
   </div>
 </template>

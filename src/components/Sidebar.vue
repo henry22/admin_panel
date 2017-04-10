@@ -13,7 +13,7 @@
         <!-- /input-group -->
       </li>
       <li>
-        <router-link to="/category" class="waves-effect active">
+        <router-link to="/upload" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon="v"></i>
           <span class="hide-menu"> Upload Article <span class="fa arrow"></span></span>
         </router-link>
@@ -25,7 +25,7 @@
         </router-link>
       </li>
       <li>
-        <router-link to="#" class="waves-effect active">
+        <router-link to="/category" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon=""></i>
           <span class="hide-menu"> Category <span class="fa arrow"></span></span>
         </router-link>
