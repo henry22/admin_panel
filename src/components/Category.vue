@@ -19,35 +19,24 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-3 col-xs-12 col-sm-6">
-            <img class="img-responsive" src="../../static/plugins/images/chair.jpg" alt="user">
+        <div class="row" v-masonry transition-duration="0.3s" item-selector=".item">
+          <div class="col-md-3 col-xs-12 col-sm-6 item" v-for="category in categories" v-masonry-tile>
+            <img class="img-responsive" :src="category.imageUrl" alt="user">
             <div class="white-box">
-              <h4>Web design course</h4>
-              <div class="text-muted m-b-20">
-                <span class="m-r-10">
-                  <i class="ti-alarm-clock"></i> 2 Year
-                </span>
-                <a class="text-muted m-l-10 m-r-10" href="#">
-                  <i class="fa fa-heart-o"></i> 38
-                </a>
-                <span class="m-l-10">
-                  <i class="fa fa-usd"></i> 50
-                </span>
-              </div>
+              <h4>{{category.title}}</h4>
               <p>
                 <span>
-                  <i class="ti-alarm-clock"></i> Duration: 6 Months
+                  <i class="ti-alarm-clock"></i> Duration: {{category.duration}}
                 </span>
               </p>
               <p>
                 <span>
-                  <i class="ti-user"></i> Professor: Jane Doe
+                  <i class="ti-user"></i> Professor: {{category.professor}}
                 </span>
               </p>
               <p>
                 <span>
-                  <i class="fa fa-graduation-cap"></i> Students: 200+
+                  <i class="fa fa-graduation-cap"></i> Students: {{category.students}}
                 </span>
               </p>
               <!-- <button class="btn btn-success btn-rounded waves-effect waves-light m-t-10">More Details</button> -->
@@ -75,70 +64,12 @@
                           <label for="message-text" class="control-label">Description:</label>
                           <textarea class="form-control" id="message-text1"></textarea>
                         </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save Category</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-xs-12 col-sm-6">
-            <img class="img-responsive" src="../../static/plugins/images/chair2.jpg" alt="user">
-            <div class="white-box">
-              <h4>Web design course</h4>
-              <div class="text-muted m-b-20">
-                <span class="m-r-10">
-                  <i class="ti-alarm-clock"></i> 2 Year
-                </span>
-                <a class="text-muted m-l-10 m-r-10" href="#">
-                  <i class="fa fa-heart-o"></i> 38
-                </a>
-                <span class="m-l-10">
-                  <i class="fa fa-usd"></i> 50
-                </span>
-              </div>
-              <p>
-                <span>
-                  <i class="ti-alarm-clock"></i> Duration: 6 Months
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="ti-user"></i> Professor: Jane Doe
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="fa fa-graduation-cap"></i> Students: 200+
-                </span>
-              </p>
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal">
-                <i class="ti-marker-alt"></i> Edit
-              </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10">
-                <i class="ti-trash"></i> Delete
-              </button>
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="exampleModalLabel1">New category</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1">
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1"></textarea>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <h3 class="box-title m-t-20">Upload Image</h3>
+                            <ImageUpload></ImageUpload>
+                          </div>
                         </div>
                       </form>
                     </div>
@@ -151,136 +82,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3 col-xs-12 col-sm-6">
-            <img class="img-responsive" src="../../static/plugins/images/chair3.jpg" alt="user">
-            <div class="white-box">
-              <h4>Web design course</h4>
-              <div class="text-muted m-b-20">
-                <span class="m-r-10">
-                  <i class="ti-alarm-clock"></i> 2 Year
-                </span>
-                <a class="text-muted m-l-10 m-r-10" href="#">
-                  <i class="fa fa-heart-o"></i> 38
-                </a>
-                <span class="m-l-10">
-                  <i class="fa fa-usd"></i> 50
-                </span>
-              </div>
-              <p>
-                <span>
-                  <i class="ti-alarm-clock"></i> Duration: 6 Months
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="ti-user"></i> Professor: Jane Doe
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="fa fa-graduation-cap"></i> Students: 200+
-                </span>
-              </p>
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal">
-                <i class="ti-marker-alt"></i> Edit
-              </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10">
-                <i class="ti-trash"></i> Delete
-              </button>
 
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="exampleModalLabel1">New category</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1">
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1"></textarea>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save Category</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-xs-12 col-sm-6">
-            <img class="img-responsive" src="../../static/plugins/images/chair4.jpg" alt="user">
-            <div class="white-box">
-              <h4>Web design course</h4>
-              <div class="text-muted m-b-20">
-                <span class="m-r-10">
-                  <i class="ti-alarm-clock"></i> 2 Year
-                </span>
-                <a class="text-muted m-l-10 m-r-10" href="#">
-                  <i class="fa fa-heart-o"></i> 38
-                </a>
-                <span class="m-l-10">
-                  <i class="fa fa-usd"></i> 50
-                </span>
-              </div>
-              <p>
-                <span>
-                  <i class="ti-alarm-clock"></i> Duration: 6 Months
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="ti-user"></i> Professor: Jane Doe
-                </span>
-              </p>
-              <p>
-                <span>
-                  <i class="fa fa-graduation-cap"></i> Students: 200+
-                </span>
-              </p>
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal">
-                <i class="ti-marker-alt"></i> Edit
-              </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10">
-                <i class="ti-trash"></i> Delete
-              </button>
-
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="exampleModalLabel1">New category</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1">
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1"></textarea>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save Category</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -288,7 +90,23 @@
 </template>
 
 <script>
+import ImageUpload from './ImageUpload'
+import {mapGetters} from 'vuex'
+
+import Vue from 'vue'
+import VueMasonryPlugin from 'vue-masonry';
+
+Vue.use(VueMasonryPlugin)
+
 export default {
+  components: {
+    ImageUpload
+  },
+  computed: {
+    ...mapGetters({
+      categories: 'getCategory'
+    })
+  }
 }
 </script>
 
