@@ -4,8 +4,8 @@
     <Sidebar></Sidebar>
     <router-view></router-view>
     <router-view name="upload"></router-view>
-    <router-view name="cards"></router-view>
-    <router-view name="category"></router-view>
+    <router-view name="articles"></router-view>
+    <router-view name="categories"></router-view>
   </div>
 </template>
 

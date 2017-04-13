@@ -12,20 +12,20 @@
         </div>
         <!-- /input-group -->
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/upload" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon="v"></i>
           <span class="hide-menu"> Upload Article <span class="fa arrow"></span></span>
         </router-link>
-      </li>
+      </li> -->
       <li>
-        <router-link to="/cards" class="waves-effect active">
+        <router-link to="/articles" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon=")"></i>
           <span class="hide-menu"> Articles <span class="fa arrow"></span></span>
         </router-link>
       </li>
       <li>
-        <router-link to="/category" class="waves-effect active">
+        <router-link to="/categories" class="waves-effect active">
           <i class="linea-icon linea-basic fa-fw" data-icon=""></i>
           <span class="hide-menu"> Category <span class="fa arrow"></span></span>
         </router-link>

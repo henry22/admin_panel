@@ -1,15 +1,15 @@
 <template lang="html">
   <div class="articleUpload">
-    <ArticleForm></ArticleForm>
+    <ArticleEditor></ArticleEditor>
   </div>
 </template>
 
 <script>
-import ArticleForm from './ArticleForm'
+import ArticleEditor from './ArticleEditor'
 
 export default {
   components: {
-    ArticleForm
+    ArticleEditor
   }
 }
 </script>

@@ -1,8 +1,9 @@
 import LoginView from './components/Login'
 import DashboardView from './components/Dashboard'
 import ArticleUploadView from './components/ArticleUpload'
-import CardsView from './components/Cards'
-import CategoryView from './components/Category'
+import ArticlesView from './components/Articles'
+import CategoriesView from './components/Categories'
+import OauthView from './components/Oauth'
 
 const routes = [
   {
@@ -18,12 +19,16 @@ const routes = [
         component: ArticleUploadView
       },
       {
-        path: 'cards',
-        component: CardsView
+        path: 'articles',
+        component: ArticlesView
       },
       {
-        path: 'category',
-        component: CategoryView
+        path: 'categories',
+        component: CategoriesView
+      },
+      {
+        path: 'oauth',
+        component: OauthView
       }
     ]
   }
