@@ -9,7 +9,6 @@ export default {
 
 }
 
-console.log(window.location)
 </script>
 
 <style lang="css">

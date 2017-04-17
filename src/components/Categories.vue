@@ -14,7 +14,7 @@
             </ul>
           </div>
           <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light">
+            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light" data-target="#exampleModal" data-toggle="modal">
               <span class="plus-icon"></span>
             </div>
           </div>
@@ -40,10 +40,10 @@
                 </span>
               </p>
               <!-- <button class="btn btn-success btn-rounded waves-effect waves-light m-t-10">More Details</button> -->
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal">
+              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
                 <i class="ti-marker-alt"></i> Edit
               </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10">
+              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory">
                 <i class="ti-trash"></i> Delete
               </button>
 
@@ -51,7 +51,9 @@
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
                       <h4 class="modal-title" id="exampleModalLabel1">New category</h4>
                     </div>
                     <div class="modal-body">
@@ -106,6 +108,17 @@ export default {
     ...mapGetters({
       categories: 'getCategory'
     })
+  },
+  created: function() {
+    this.$store.dispatch('getCategories')
+  },
+  methods: {
+    editCategory(e) {
+      this.$store.dispatch('patchCategories', e)
+    },
+    deleteCategory(e) {
+      this.$store.dispatch('deleteCategories', e)
+    }
   }
 }
 </script>
