@@ -1,34 +1,25 @@
 import Vue from 'vue'
-import axios from 'axios'
+import {axiosInstance} from '../axios_custom.js'
+import * as types from '../mutations_type.js'
+import {ACCESS_TOKEN} from '../key.js'
+
 
 const state = {
-  // config: {
-  //   headers: {
-  //     'Authorization': 'bearer ' + token
-  //   }
-  // },
-  // bodyParameters: {
-  //   'key': 'value'
-  // }
+  token: null
 }
 
 const getters = {
-
+  isAuthenticated: state => state.token !== null
 }
 
 const mutations = {
-
+  [types.SET_TOKEN](state, payload) {
+    state.token = payload
+    loaclStorage.setItem(ACCESS_TOKEN, payload)
+  }
 }
 
 const actions = {
-  // getToken({commit}) {
-  //   axios.post('https://ec2server.santanica.co:81/api/v1/oauth/token', state.config, state.bodyParameters)
-  //        .then((response) => {
-  //          console.log(response)
-  //          commit('GET_TOKEN', response)
-  //        })
-  //        .catch((error) => console.log(error))
-  // }
 }
 
 export default {

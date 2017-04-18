@@ -6,37 +6,43 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import store from './store'
 
+import auth from './store/modules/oauth.js'
+
+import { sync } from 'vuex-router-sync'
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
-const router = new VueRouter({
+export const router = new VueRouter({
   mode: 'history',
   routes
 })
 
-// router.beforeEach((to, from, next) => {
-//   if (to.matched.some(record => record.meta.requiresAuth)) {
-//     // this route requires auth, check if logged in
-//     // if not, redirect to login page.
-//     if (!auth.loggedIn()) {
-//       next({
-//         path: '/login',
-//         query: { redirect: to.fullPath }
-//       })
-//     } else {
-//       next()
-//     }
-//   } else {
-//     next() // 确保一定要调用 next()
-//   }
-// })
+sync(store, router)
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!store.getters.loggedIn) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next() // 确保一定要调用 next()
+  }
+})
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  store: store,
+  store,
   template: '<App/>',
   components: { App }
 })

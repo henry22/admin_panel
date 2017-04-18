@@ -13,6 +13,7 @@ const routes = [
   {
     path: '/',
     component: DashboardView,
+    meta: { requiresAuth: true },
     children: [
       {
         path: 'upload',
@@ -20,7 +21,8 @@ const routes = [
       },
       {
         path: 'articles',
-        component: ArticlesView
+        component: ArticlesView,
+        meta: { requiresAuth: true }
       },
       {
         path: 'categories',

@@ -20,25 +20,25 @@
           </div>
         </div>
         <div class="row" v-masonry transition-duration="0.3s" item-selector=".item">
-          <div class="col-md-3 col-xs-12 col-sm-6 item" v-for="category in categories" v-masonry-tile>
-            <img class="img-responsive" :src="category.imageUrl" alt="user">
+          <div class="col-md-3 col-xs-12 col-sm-6 item" v-for="(category, index) in categories" v-masonry-tile>
+            <img class="img-responsive" alt="user">
             <div class="white-box">
-              <h4>{{category.title}}</h4>
+              <h4>{{category.name}}</h4>
+              <!-- <p>
+                <span>
+                  <i class="ti-alarm-clock"></i> Duration:
+                </span>
+              </p> -->
               <p>
                 <span>
-                  <i class="ti-alarm-clock"></i> Duration: {{category.duration}}
+                  <i class="ti-user"></i> Description: {{category.desc}}
                 </span>
               </p>
-              <p>
+              <!-- <p>
                 <span>
-                  <i class="ti-user"></i> Professor: {{category.professor}}
+                  <i class="fa fa-graduation-cap"></i> Students:
                 </span>
-              </p>
-              <p>
-                <span>
-                  <i class="fa fa-graduation-cap"></i> Students: {{category.students}}
-                </span>
-              </p>
+              </p> -->
               <!-- <button class="btn btn-success btn-rounded waves-effect waves-light m-t-10">More Details</button> -->
               <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
                 <i class="ti-marker-alt"></i> Edit

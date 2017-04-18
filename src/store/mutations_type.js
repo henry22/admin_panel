@@ -1,0 +1,9 @@
+export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const POST_CATEGORIES = 'POST_CATEGORIES'
+export const DELETE_CATEGORIES = 'DELETE_CATEGORIES'
+export const PATCH_CATEGORIES = 'PATCH_CATEGORIES'
+
+export const SET_TOKEN = 'SET_TOKEN'
+
+export const SET_USER = 'SET_USER'
+export const SET_LOGIN = 'SET_LOGIN'

@@ -20,7 +20,8 @@
     "vue-router": "^2.3.1",
     "vue-style-loader": "^2.0.5",
     "vue-template-loader": "^0.2.4",
-    "vuex": "^2.2.1"
+    "vuex": "^2.2.1",
+    "vuex-router-sync": "^4.1.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
