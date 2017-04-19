@@ -43,7 +43,7 @@
               <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
                 <i class="ti-marker-alt"></i> Edit
               </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory(category.id)">
+              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory">
                 <i class="ti-trash"></i> Delete
               </button>
 

@@ -44,7 +44,7 @@ const getters = {
 }
 
 const mutations = {
-  [types.GET_CATEGORIES](state, categories) {
+  [types.SET_CATEGORIES](state, categories) {
     state.categoryList = categories.data
   },
   [types.POST_CATEGORIES](state, category) {
@@ -82,7 +82,7 @@ const actions = {
     axiosInstance.get('/categories')
       .then((response) => {
         console.log(response)
-        commit('GET_CATEGORIES', response)
+        commit('SET_CATEGORIES', response)
       })
       .catch((error) => console.log(error))
   },
