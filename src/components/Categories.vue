@@ -8,7 +8,7 @@
               <li>
                 <form role="search" class="app-search hidden-xs">
                   <input type="text" placeholder="Search Category..." class="form-control" id="category-search">
-                  <a href=""><i class="fa fa-search"></i></a>
+                  <button type="submit" class="searchBtn"><i class="fa fa-search"></i></button>
                 </form>
               </li>
             </ul>
@@ -43,7 +43,7 @@
               <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
                 <i class="ti-marker-alt"></i> Edit
               </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory">
+              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory(category.id)">
                 <i class="ti-trash"></i> Delete
               </button>
 
@@ -116,8 +116,8 @@ export default {
     editCategory(e) {
       this.$store.dispatch('patchCategories', e)
     },
-    deleteCategory(e) {
-      this.$store.dispatch('deleteCategories', e)
+    deleteCategory(id) {
+      this.$store.dispatch('deleteCategories', id)
     }
   }
 }
@@ -177,5 +177,13 @@ export default {
   }
   .add-button:active {
     transform: scale(0.8);
+  }
+
+  .searchBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    border: 0;
   }
 </style>

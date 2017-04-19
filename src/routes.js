@@ -1,4 +1,4 @@
-import LoginView from './components/Login'
+import LoginView from './components/LoginTwo'
 import DashboardView from './components/Dashboard'
 import ArticleUploadView from './components/ArticleUpload'
 import ArticlesView from './components/Articles'

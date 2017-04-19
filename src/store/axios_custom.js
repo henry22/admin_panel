@@ -3,8 +3,7 @@ import {ACCESS_TOKEN} from './key.js'
 
 export const axiosInstance = axios.create({
   baseURL: 'http://ec2server.santanica.co/api/v1',
-  timeout: 1000,
-  headers: {'Authorization': 'Bearer a8fc2cce51e0175ec3e5b10908a64fb6c58eb98b'}
+  headers: {'Authorization': 'Bearer 4577d863613cc3d3289fbba4b70eae8e59d20921'}
 })
 
 axiosInstance.interceptors.request.use(request => {
@@ -17,10 +16,12 @@ axiosInstance.interceptors.response.use(function(response) {
   console.log('Starting Response', response);
   return response
 }, function(error) {
+  console.log(error.response)
   //Do something with response error
   const originalRequest = error.config
 
   if(error.response.status === 401 && !originalRequest._retry) {
+
     originalRequest._retry = true
 
     const accessToken = window.localStorage.getItem(ACCESS_TOKEN)

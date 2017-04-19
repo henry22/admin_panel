@@ -2,6 +2,19 @@
   <div>
     <div id="page-wrapper">
       <div class="container-fluid">
+        <div class="row bg-title">
+          <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <ul class="nav navbar-top-links navbar-left hidden-xs">
+              <li>
+                <div role="search" class="app-search hidden-xs">
+                    <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchTxt" @keyup.enter="test(searchTxt)">
+                    <button type="submit" class="searchBtn" @click="test()"><i class="fa fa-search"></i></button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
         <div class="classes" v-masonry transition-duration="0.3s" item-selector=".classbox">
           <div class="classbox" v-for="cls in classes" v-masonry-tile>
             <div class="teacher" :style="'background-image: url(' + cls.owner.profileImageUrl + ')'"></div>
@@ -36,6 +49,18 @@ export default {
     ...mapGetters({
       classes: 'getClasses'
     })
+  },
+  methods: {
+    test(text) {
+      if(text !== '') {
+        this.$store.dispatch('getUrls', text)
+      }
+    }
+  },
+  data() {
+    return {
+      searchTxt: ''
+    }
   }
 }
 </script>
@@ -142,5 +167,16 @@ export default {
   border-radius: 0 0 5px 5px;
 }
 
+#category-search {
+  margin-top: 0;
+}
+
+.searchBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: 0;
+}
 
 </style>

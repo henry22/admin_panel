@@ -99,7 +99,8 @@ const actions = {
       .catch((error) => console.log(error))
   },
   deleteCategories({commit}, id) {
-    axiosInstance.delete('/categories')
+    console.log(id)
+    axiosInstance.delete('/categories/{id}')
       .then((response) => {
         console.log(response)
         commit('DELETE_CATEGORIES', id)
