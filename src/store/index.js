@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import category from './modules/category.js'
-import cards from './modules/cards.js'
+import articles from './modules/articles.js'
 import oauth from './modules/oauth.js'
 import user from './modules/user.js'
 import crawlers from './modules/crawlers.js'
@@ -12,7 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     category,
-    cards,
+    articles,
     oauth,
     user,
     crawlers,

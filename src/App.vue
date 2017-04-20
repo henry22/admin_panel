@@ -8,6 +8,13 @@
 
 export default {
   name: 'app'
+  // mounted: function() {
+  //   //alert('unload...')
+  //   document.addEventListener('beforeunload', function(event) {
+  //     event.preventDefault()
+  //     alert('unload...')
+  //   })
+  // }
 }
 </script>
 

@@ -44,5 +44,11 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App }
+  components: { App },
+  created() {
+    window.onbeforeunload = function(e) {
+      e.preventDafault()
+      alert('leaving')
+    }
+  }
 })

@@ -86,23 +86,23 @@ const actions = {
       })
       .catch((error) => console.log(error))
   },
-  postCategories({commit}) {
+  postCategories({commit}, category) {
+    console.log(category)
     axiosInstance.post('/categories', {
-      name: 'string',
-      desc: 'string',
-      avatar: 'string'
+      name: category.uploadTitle,
+      desc: category.uploadDesc
     })
       .then((response) => {
         console.log(response)
-        commit('POST_CATEGORIES', response)
+        commit('POST_CATEGORIES', response.data)
       })
       .catch((error) => console.log(error))
   },
   deleteCategories({commit}, id) {
-    console.log(id)
-    axiosInstance.delete('/categories/{id}')
+    var deleteUrl = '/categories/' + id
+    axiosInstance.delete(deleteUrl)
       .then((response) => {
-        console.log(response)
+        //console.log(response)
         commit('DELETE_CATEGORIES', id)
       })
       .catch((error) => console.log(error))

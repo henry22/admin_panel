@@ -23,9 +23,12 @@ const mutations = {
     state.user = user
   },
   [types.SET_LOGIN](state, isLoggedIn) {
-    window.localStorage.setItem(IS_LOGGEDIN, isLoggedIn)
     if(isLoggedIn) {
+      window.localStorage.setItem(IS_LOGGEDIN, isLoggedIn)
       router.push('/')
+    } else {
+      window.localStorage.clear()
+      router.push('/login')
     }
   },
   [types.SET_ACCOUNT](state, account) {
@@ -65,8 +68,10 @@ const actions = {
             console.log('Unprocessable Entity')
             break
         }
-        // console.log(error.response)
       })
+  },
+  logout({commit}) {
+    commit('SET_LOGIN', false)
   },
   setAccount({commit}, account) {
     commit('SET_ACCOUNT', account)

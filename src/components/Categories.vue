@@ -14,7 +14,7 @@
             </ul>
           </div>
           <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline hidden-xs hidden-sm waves-effect waves-light" data-target="#exampleModal" data-toggle="modal">
+            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline waves-effect waves-light" data-target="#exampleModal" data-toggle="modal">
               <span class="plus-icon"></span>
             </div>
           </div>
@@ -43,7 +43,7 @@
               <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
                 <i class="ti-marker-alt"></i> Edit
               </button>
-              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory">
+              <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory(category.id)">
                 <i class="ti-trash"></i> Delete
               </button>
 
@@ -60,11 +60,11 @@
                       <form>
                         <div class="form-group">
                           <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1">
+                          <input type="text" class="form-control" id="recipient-name1" v-model="uploadTitle">
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1"></textarea>
+                          <textarea class="form-control" id="message-text1" v-model="uploadDesc"></textarea>
                         </div>
 
                         <div class="row">
@@ -77,7 +77,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save Category</button>
+                      <button type="submit" class="btn btn-primary" data-dismiss="modal" @click="saveCategory({uploadTitle, uploadDesc})">Save Category</button>
                     </div>
                   </div>
                 </div>
@@ -116,74 +116,89 @@ export default {
     editCategory(e) {
       this.$store.dispatch('patchCategories', e)
     },
-    deleteCategory(id) {
-      this.$store.dispatch('deleteCategories', id)
+    deleteCategory(deleteId) {
+      this.$store.dispatch('deleteCategories', deleteId)
+    },
+    saveCategory(obj) {
+      this.$store.dispatch('postCategories', obj)
+    }
+  },
+  data() {
+    return {
+      uploadTitle: '',
+      uploadDesc: ''
     }
   }
 }
 </script>
 
-<style lang="css">
-  #category-search {
-    border: 1px solid #4c5667;
-  }
-  #editButton {
-    background-color: #3498DB;
-    border: none;
-    color: #fff;
-  }
-  #editButton:hover {
-    background-color: #2980B9;
-  }
+<style lang="css" scoped>
+.bg-title {
+  line-height: 50px;
+}
 
-  .plus-icon {
-    display: block;
-    height: 2px;
-    width: 16px;
-    background: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -1px -8px;
-  }
-  .plus-icon:after {
-    content: '';
-    display: block;
-    height: 16px;
-    width: 2px;
-    background: #fff;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -8px -1px;
-  }
-  .add-button {
-    display: block;
-    width: 40px;
-    height: 40px;
-    background: #32ebc7;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    transition: transform .2s ease-in-out, background .2s ease-in-out;
-  }
-  .add-button:hover {
-    transform: scale(1.25);
-  }
-  .add-button:hover + .label {
-    opacity: 1;
-    visibilty: visible;
-    transform: translateX(0);
-  }
-  .add-button:active {
-    transform: scale(0.8);
-  }
+#category-search {
+  border: 1px solid #4c5667;
+  margin-top: 0;
+}
+#editButton {
+  background-color: #3498DB;
+  border: none;
+  color: #fff;
+}
+#editButton:hover {
+  background-color: #2980B9;
+}
 
-  .searchBtn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: none;
-    border: 0;
-  }
+.plus-icon {
+  display: block;
+  height: 2px;
+  width: 16px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.plus-icon:after {
+  content: '';
+  display: block;
+  height: 16px;
+  width: 2px;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -8px -1px;
+}
+.add-button {
+  display: block;
+  float: right;
+  width: 40px;
+  height: 40px;
+  background: #32ebc7;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  transition: transform .2s ease-in-out, background .2s ease-in-out;
+}
+.add-button:hover {
+  transform: scale(1.25);
+}
+.add-button:hover + .label {
+  opacity: 1;
+  visibilty: visible;
+  transform: translateX(0);
+}
+.add-button:active {
+  transform: scale(0.8);
+}
+
+.searchBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: 0;
+}
 </style>

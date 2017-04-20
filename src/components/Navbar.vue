@@ -23,7 +23,7 @@
             <li>
               <div class="message-center"> <a href="#">
                 <div class="user-img">
-                  <img src="../../static/plugins/images/users/pawandeep.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span> 
+                  <img src="../../static/plugins/images/users/pawandeep.jpg" alt="user" class="img-circle"> <span class="profile-status online pull-right"></span>
                 </div>
                 <div class="mail-contnet">
                   <h5>Pavan kumar</h5>
@@ -103,7 +103,7 @@
             <li role="separator" class="divider"></li>
             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+            <li><a href="#" @click="logout"><i class="fa fa-power-off"></i> Logout</a></li>
           </ul>
           <!-- /.dropdown-user -->
         </li>
@@ -119,7 +119,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  methods: {
+    ...mapActions({
+      logout: 'logout'
+    })
+  }
 }
 </script>
 

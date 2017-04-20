@@ -7,8 +7,8 @@
             <ul class="nav navbar-top-links navbar-left hidden-xs">
               <li>
                 <div role="search" class="app-search hidden-xs">
-                    <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchTxt" @keyup.enter="test(searchTxt)">
-                    <button type="submit" class="searchBtn" @click="test()"><i class="fa fa-search"></i></button>
+                    <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
+                    <button type="submit" class="searchBtn" @click="search(searchUrl)"><i class="fa fa-search"></i></button>
                 </div>
               </li>
             </ul>
@@ -16,15 +16,16 @@
         </div>
 
         <div class="classes" v-masonry transition-duration="0.3s" item-selector=".classbox">
-          <div class="classbox" v-for="cls in classes" v-masonry-tile>
-            <div class="teacher" :style="'background-image: url(' + cls.owner.profileImageUrl + ')'"></div>
+          <div class="classbox" v-for="article in articles" v-masonry-tile>
+            <!-- <div class="teacher" :style="'background-image: url(' + article.image + ')'"></div> -->
             <div class="top">
-              <div class="classpicture" :style="'background-image: url(' + cls.coverImage.url + ')'"></div>
+              <div class="classpicture" :style="'background-image: url(' + article.image + ')'"></div>
               <div class="tag">募資中</div>
               <div class="bookbtn"><i class="fa fa-bookmark-o"></i></div>
             </div>
             <div class="bottom">
-              <h1 class="classtitle">{{cls.title}}</h1>
+              <h1 class="classtitle">{{article.title}}</h1>
+              <p>{{article.description}}</p>
               <div class="orangebar"></div>
             </div>
           </div>
@@ -37,7 +38,7 @@
 
 
 <script>
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 import Vue from 'vue'
 import VueMasonryPlugin from 'vue-masonry';
@@ -47,32 +48,32 @@ Vue.use(VueMasonryPlugin)
 export default {
   computed: {
     ...mapGetters({
-      classes: 'getClasses'
+      articles: 'getArticles'
     })
   },
   methods: {
-    test(text) {
-      if(text !== '') {
-        this.$store.dispatch('getUrls', text)
+    search(url) {
+      if(url !== '') {
+        this.$store.dispatch('getUrls', url)
       }
     }
   },
   data() {
     return {
-      searchTxt: ''
+      searchUrl: ''
     }
   }
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 * {
   position: relative;
   vertical-align: middle;
 }
 
 .classbox {
-  width: 260px;
+  width: 270px;
   background-color: white;
   color: #4F4C4B;
   border-radius: 5px;
@@ -149,11 +150,12 @@ export default {
   font-size: 22px;
 }
 .classbox .bottom {
-  height: 184px;
+  height: 250px;
   padding: 15px;
 }
 .classbox .bottom .classtitle {
-  font-size: 25px;
+  font-size: 18px;
+  line-height: 120%;
   margin-top: 0;
 }
 

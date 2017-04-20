@@ -3,7 +3,7 @@ import {ACCESS_TOKEN} from './key.js'
 
 export const axiosInstance = axios.create({
   baseURL: 'http://ec2server.santanica.co/api/v1',
-  headers: {'Authorization': 'Bearer 4577d863613cc3d3289fbba4b70eae8e59d20921'}
+  headers: {'Authorization': 'Bearer ad3797cfeae18f72f217d67fcfbddd9d18d0151a'}
 })
 
 axiosInstance.interceptors.request.use(request => {
