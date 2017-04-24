@@ -10,7 +10,7 @@ const state = {
 
 const getters = {
   getParsers: state => state.parsers,
-  getUrl: state => state.url,
+  getUrl: state => state.urls,
   getArticles: state => state.articles
 }
 
@@ -29,43 +29,38 @@ const mutations = {
 }
 
 const actions = {
-  getParser({commit}, url) {
-    axiosInstance.get('/crawlers/parser', {
-      params: {
-        url: 'string'
-      }
-    })
-      .then((response) => {
-        console.log(response)
-        commit('SET_PARSER', response)
-      })
-      .catch((error) => console.log(error))
-  },
+  // getParser({commit}, url) {
+  //   axiosInstance.get('/crawlers/parser', {
+  //     params: {
+  //       url: 'string'
+  //     }
+  //   })
+  //     .then((response) => {
+  //       console.log(response)
+  //       commit('SET_PARSER', response)
+  //     })
+  //     .catch((error) => console.log(error))
+  // },
   getUrls({commit}, url) {
     axiosInstance.get('/crawlers/urls', {
       params: {
-        url: url,
-        depth: 2
+        url: url
       }
     })
       .then((response) => {
         //console.log(response)
         for(var index in response.data) {
           var url = response.data[index]
-          if(url.startsWith('https://dq.yam.com')) {
-            axiosInstance.get('/crawlers/parser', {
-              params: {
-                url: url,
-                depth: 1
-              }
+
+          axiosInstance.get('/crawlers/parser', {
+            params: {
+              url: url
+            }
+          })
+            .then((response) => {
+              commit('SET_PARSER', response)
             })
-              .then((response) => {
-                //console.log(response)
-                //var obj = JSON.parse(response.data)
-                commit('SET_PARSER', response)
-              })
-              .catch((error) => console.log(error))
-          }
+            .catch((error) => console.log(error))
         }
         commit('SET_URLS', response)
       })

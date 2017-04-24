@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {axiosInstance} from '../axios_custom.js'
 import * as types from '../mutations_type.js'
+import {PhotoApi} from './photos'
 
 const state = {
   categoryList: [
@@ -36,7 +37,8 @@ const state = {
     //   students: "200+",
     //   imageUrl: "https://hahow.in/images/57622ff5f1399b0900e234d4"
     // }
-  ]
+  ],
+  imageFile: null
 }
 
 const getters = {
@@ -51,11 +53,11 @@ const mutations = {
     state.categoryList.push(category)
   },
   [types.DELETE_CATEGORIES](state, id) {
-    state.categoryList.forEach(function(category) {
-      if(category.id === id) {
-        state.categoryList.splice(category, 1)
+    for(var i = 0; i < state.categoryList.length; i++) {
+      if(state.categoryList[i].id === id) {
+        state.categoryList.splice(i, 1)
       }
-    })
+    }
   },
   [types.PATCH_CATEGORIES](state, newCategory) {
     state.categoryList.forEach(function(category) {
@@ -65,59 +67,73 @@ const mutations = {
         category.avatar = newCategory.avatar
       }
     })
+  },
+  [types.SET_IMAGE_FILE](state, photo) {
+    state.imageFile = photo
   }
 }
 
 const actions = {
+  saveLocalFile({commit}, imageFile) {
+    commit(types.SET_IMAGE_FILE, imageFile)
+  },
   getCategories({commit}) {
-    // axios.interceptors.request.use(request => {
-    //   console.log('Starting Request', request)
-    //   return request
-    // })
-    //
-    // axios.interceptors.response.use(response => {
-    //   console.log('Response:', response)
-    //   return response
-    // })
     axiosInstance.get('/categories')
       .then((response) => {
         console.log(response)
-        commit('SET_CATEGORIES', response)
+        commit(types.SET_CATEGORIES, response)
       })
       .catch((error) => console.log(error))
   },
-  postCategories({commit}, category) {
-    console.log(category)
-    axiosInstance.post('/categories', {
-      name: category.uploadTitle,
-      desc: category.uploadDesc
-    })
-      .then((response) => {
-        console.log(response)
-        commit('POST_CATEGORIES', response.data)
-      })
-      .catch((error) => console.log(error))
+  async postCategories({commit}, category) {
+
+    try {
+        if(state.imageFile != null) {
+          const photoId = await PhotoApi.upload(state.imageFile);
+          category.avatar = photoId;
+          commit(types.SET_IMAGE_FILE, null)
+        }
+        const url = '/categories';
+        const body = {
+          name: category.name,
+          desc: category.desc,
+          avatar: category.avatar
+        };
+        // console.log('category body: %j', body);
+        const response = await axiosInstance.post(url, body);
+        commit(types.POST_CATEGORIES, response.data)
+
+    } catch(error){
+        console.log(error)
+    }
   },
   deleteCategories({commit}, id) {
     var deleteUrl = '/categories/' + id
     axiosInstance.delete(deleteUrl)
       .then((response) => {
-        //console.log(response)
-        commit('DELETE_CATEGORIES', id)
+        commit(types.DELETE_CATEGORIES, id)
       })
       .catch((error) => console.log(error))
   },
-  patchCategories({commit}, category) {
-    axiosInstance.patch('/categories', {
-      name: category.name,
-      desc: category.desc,
-      avatar: category.avatar
-    })
-      .then((response) => {
-        console.log(response)
-        commit('PATCH_CATEGORIES', response)
-      })
-      .catch((error) => console.log(error))
+  async patchCategories({commit}, category) {
+    try {
+        if(state.imageFile != null) {
+          const photoId = await PhotoApi.upload(state.imageFile);
+          category.avatar = photoId;
+          commit(types.SET_IMAGE_FILE, null)
+        }
+        const url = '/categories/' + category.id;
+        const body = {
+          name: category.name,
+          desc: category.desc,
+          avatar: category.avatar
+        };
+        const response = await axiosInstance.patch(url, body);
+        commit(types.PATCH_CATEGORIES, response.data)
+
+    } catch(error){
+        console.log(error)
+    }
   }
 }
 

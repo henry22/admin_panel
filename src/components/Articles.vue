@@ -6,10 +6,10 @@
           <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
             <ul class="nav navbar-top-links navbar-left hidden-xs">
               <li>
-                <div role="search" class="app-search hidden-xs">
+                <form role="search" class="app-search hidden-xs" v-on:submit.prevent="search">
                     <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
                     <button type="submit" class="searchBtn" @click="search(searchUrl)"><i class="fa fa-search"></i></button>
-                </div>
+                </form>
               </li>
             </ul>
           </div>

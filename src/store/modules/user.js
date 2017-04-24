@@ -24,8 +24,9 @@ const mutations = {
   },
   [types.SET_LOGIN](state, isLoggedIn) {
     if(isLoggedIn) {
+      console.log('login')
       window.localStorage.setItem(IS_LOGGEDIN, isLoggedIn)
-      router.push('/')
+      router.push('/categories')
     } else {
       window.localStorage.clear()
       router.push('/login')

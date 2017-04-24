@@ -2,8 +2,9 @@
 <section id="wrapper" class="login-register">
   <div class="login-box">
     <div class="white-box">
-      <div class="form-horizontal form-material" id="loginform">
+      <form class="form-horizontal form-material" enctype="multipart/form-data" id="loginform" v-on:submit.prevent="actionLogin()">
         <h3 class="box-title m-b-20">Sign In</h3>
+        <input type="file" name="image">
         <div class="form-group ">
           <div class="col-xs-12">
             <input class="form-control" type="text" placeholder="Username"  value="account" required v-model="account">
@@ -27,7 +28,7 @@
         </div>
         <div class="form-group text-center m-t-20">
           <div class="col-xs-12">
-            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit" @click="actionLogin()">Log In
+            <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Log In
             </button>
           </div>
         </div>
@@ -36,7 +37,7 @@
             <p>Don't have an account? <a href="register.html" class="text-primary m-l-5"><b>Sign Up</b></a></p>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>

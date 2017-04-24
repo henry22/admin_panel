@@ -14,14 +14,13 @@
             </ul>
           </div>
           <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline waves-effect waves-light" data-target="#exampleModal" data-toggle="modal">
+            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline waves-effect waves-light" data-target="#exampleModal" data-toggle="modal" @click="createCategory">
               <span class="plus-icon"></span>
             </div>
           </div>
         </div>
         <div class="row" v-masonry transition-duration="0.3s" item-selector=".item">
           <div class="col-md-3 col-xs-12 col-sm-6 item" v-for="(category, index) in categories" v-masonry-tile>
-            <img class="img-responsive" alt="user">
             <div class="white-box">
               <h4>{{category.name}}</h4>
               <!-- <p>
@@ -34,13 +33,17 @@
                   <i class="ti-user"></i> Description: {{category.desc}}
                 </span>
               </p>
+
+              <img class="img-responsive" :src="baseUrl + '/photos/' + category.avatar + '/original'" alt="image" id="avatar">
+
+              <!-- <div class="classpicture" :style="'background-image: url(' + getPhoto + ')'"></div> -->
               <!-- <p>
                 <span>
                   <i class="fa fa-graduation-cap"></i> Students:
                 </span>
               </p> -->
               <!-- <button class="btn btn-success btn-rounded waves-effect waves-light m-t-10">More Details</button> -->
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory">
+              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory(category)">
                 <i class="ti-marker-alt"></i> Edit
               </button>
               <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory(category.id)">
@@ -59,12 +62,16 @@
                     <div class="modal-body">
                       <form>
                         <div class="form-group">
+                          <label class="control-label">Image</label>
+                          <img class="img-responsive" :src="baseUrl + '/photos/' + avatar + '/original'" alt="image" id="avatar">
+                        </div>
+                        <div class="form-group">
                           <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1" v-model="uploadTitle">
+                          <input type="text" class="form-control" id="recipient-name1" v-model="name">
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1" v-model="uploadDesc"></textarea>
+                          <textarea class="form-control" id="message-text1" v-model="desc"></textarea>
                         </div>
 
                         <div class="row">
@@ -77,7 +84,7 @@
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" data-dismiss="modal" @click="saveCategory({uploadTitle, uploadDesc})">Save Category</button>
+                      <button type="submit" class="btn btn-primary" data-dismiss="modal" @click="saveCategory({name, desc, avatar, id})">Save Category</button>
                     </div>
                   </div>
                 </div>
@@ -94,6 +101,7 @@
 <script>
 import ImageUpload from './ImageUpload'
 import {mapGetters} from 'vuex'
+import {BASE_URL} from '../store/api_config.js'
 
 import Vue from 'vue'
 import VueMasonryPlugin from 'vue-masonry';
@@ -106,33 +114,65 @@ export default {
   },
   computed: {
     ...mapGetters({
-      categories: 'getCategory'
+      categories: 'getCategory',
+      getPhoto: 'getPhoto'
     })
   },
   created: function() {
     this.$store.dispatch('getCategories')
   },
   methods: {
-    editCategory(e) {
-      this.$store.dispatch('patchCategories', e)
+    createCategory() {
+      console.log('create')
+      this.editorMode = 'create'
+    },
+    editCategory(category) {
+      this.editorMode = 'edit'
+      this.id = category.id
+      this.name = category.name
+      this.desc = category.desc
+      this.avatar = category.avatar
     },
     deleteCategory(deleteId) {
       this.$store.dispatch('deleteCategories', deleteId)
     },
-    saveCategory(obj) {
-      this.$store.dispatch('postCategories', obj)
+    saveCategory(category) {
+      if(this.editorMode === 'create') {
+        this.$store.dispatch('postCategories', category)
+        this.name = ''
+        this.desc = ''
+        this.avatar = ''
+      } else {
+        this.$store.dispatch('patchCategories', category)
+        this.name = ''
+        this.desc = ''
+        this.avatar = ''
+      }
     }
   },
   data() {
     return {
-      uploadTitle: '',
-      uploadDesc: ''
+      id: '',
+      name: '',
+      desc: '',
+      avatar: '',
+      baseUrl: BASE_URL,
+      editorMode: ''
     }
   }
 }
+
 </script>
 
+
 <style lang="css" scoped>
+#avatar {
+  width: 40%;
+  height: 40%;
+  display: block;
+  margin: 0 auto;
+}
+
 .bg-title {
   line-height: 50px;
 }

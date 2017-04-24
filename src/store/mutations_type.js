@@ -14,4 +14,6 @@ export const SET_PASSWORD = 'SET_PASSWORD'
 export const SET_PARSER = 'SET_PARSER'
 export const SET_URLS = 'SET_URLS'
 
-export const POST_PHOTOS = 'POST_PHOTOS'
+export const SET_PHOTO = 'SET_PHOTO'
+
+export const SET_IMAGE_FILE = 'SET_IMAGE_FILE'

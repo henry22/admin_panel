@@ -1,9 +1,10 @@
 import axios from 'axios'
 import {ACCESS_TOKEN} from './key.js'
+import {BASE_URL} from './api_config.js'
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://ec2server.santanica.co/api/v1',
-  headers: {'Authorization': 'Bearer ad3797cfeae18f72f217d67fcfbddd9d18d0151a'}
+  baseURL: BASE_URL,
+  headers: {'Authorization': 'Bearer 615985b2492f0656b28baa170a48dddf427876e1'}
 })
 
 axiosInstance.interceptors.request.use(request => {
