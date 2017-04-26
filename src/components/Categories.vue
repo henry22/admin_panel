@@ -14,7 +14,7 @@
             </ul>
           </div>
           <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12">
-            <div class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline waves-effect waves-light" data-target="#exampleModal" data-toggle="modal" @click="createCategory">
+            <div type="button" class="add-button pull-right m-r-40 m-t-10 btn-rounded btn-outline waves-effect waves-light" data-target="#editCategoryModal" data-toggle="modal" @click="createCategory">
               <span class="plus-icon"></span>
             </div>
           </div>
@@ -23,11 +23,6 @@
           <div class="col-md-3 col-xs-12 col-sm-6 item" v-for="(category, index) in categories" v-masonry-tile>
             <div class="white-box">
               <h4>{{category.name}}</h4>
-              <!-- <p>
-                <span>
-                  <i class="ti-alarm-clock"></i> Duration:
-                </span>
-              </p> -->
               <p>
                 <span>
                   <i class="ti-user"></i> Description: {{category.desc}}
@@ -36,70 +31,24 @@
 
               <img class="img-responsive" :src="baseUrl + '/photos/' + category.avatar + '/original'" alt="image" id="avatar">
 
-              <!-- <div class="classpicture" :style="'background-image: url(' + getPhoto + ')'"></div> -->
-              <!-- <p>
-                <span>
-                  <i class="fa fa-graduation-cap"></i> Students:
-                </span>
-              </p> -->
-              <!-- <button class="btn btn-success btn-rounded waves-effect waves-light m-t-10">More Details</button> -->
-              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#exampleModal" data-toggle="modal" @click="editCategory(category)">
+              <button class="btn btn-primary btn-rounded waves-effect waves-light m-t-10" data-target="#editCategoryModal" data-toggle="modal" @click="editCategory(category)">
                 <i class="ti-marker-alt"></i> Edit
               </button>
               <button class="btn btn-danger btn-rounded waves-effect waves-light m-t-10" @click="deleteCategory(category.id)">
                 <i class="ti-trash"></i> Delete
               </button>
-
-              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h4 class="modal-title" id="exampleModalLabel1">New category</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form>
-                        <div class="form-group">
-                          <label class="control-label">Image</label>
-                          <img class="img-responsive" :src="baseUrl + '/photos/' + avatar + '/original'" alt="image" id="avatar">
-                        </div>
-                        <div class="form-group">
-                          <label for="recipient-name" class="control-label">Title</label>
-                          <input type="text" class="form-control" id="recipient-name1" v-model="name">
-                        </div>
-                        <div class="form-group">
-                          <label for="message-text" class="control-label">Description:</label>
-                          <textarea class="form-control" id="message-text1" v-model="desc"></textarea>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h3 class="box-title m-t-20">Upload Image</h3>
-                            <ImageUpload></ImageUpload>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary" data-dismiss="modal" @click="saveCategory({name, desc, avatar, id})">Save Category</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
-
         </div>
+
+        <PopupDialog :category="editableCategory"></PopupDialog>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import ImageUpload from './ImageUpload'
+import PopupDialog from './PopupDialog'
 import {mapGetters} from 'vuex'
 import {BASE_URL} from '../store/api_config.js'
 
@@ -110,7 +59,7 @@ Vue.use(VueMasonryPlugin)
 
 export default {
   components: {
-    ImageUpload
+    PopupDialog
   },
   computed: {
     ...mapGetters({
@@ -123,41 +72,19 @@ export default {
   },
   methods: {
     createCategory() {
-      console.log('create')
-      this.editorMode = 'create'
+      this.editableCategory = {}
     },
     editCategory(category) {
-      this.editorMode = 'edit'
-      this.id = category.id
-      this.name = category.name
-      this.desc = category.desc
-      this.avatar = category.avatar
+      this.editableCategory = category
     },
     deleteCategory(deleteId) {
       this.$store.dispatch('deleteCategories', deleteId)
-    },
-    saveCategory(category) {
-      if(this.editorMode === 'create') {
-        this.$store.dispatch('postCategories', category)
-        this.name = ''
-        this.desc = ''
-        this.avatar = ''
-      } else {
-        this.$store.dispatch('patchCategories', category)
-        this.name = ''
-        this.desc = ''
-        this.avatar = ''
-      }
     }
   },
   data() {
     return {
-      id: '',
-      name: '',
-      desc: '',
-      avatar: '',
       baseUrl: BASE_URL,
-      editorMode: ''
+      editableCategory: {}
     }
   }
 }

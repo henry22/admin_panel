@@ -13,20 +13,35 @@
               </li>
             </ul>
           </div>
+
+          <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
+            <select class="form-control pull-left row b-none" name="" @change="setLanguageCode(languageCode)" v-model="languageCode">
+              <option value="">Language</option>
+              <option :value="language.code" v-for="language in languages">{{language.nativeName}}</option>
+            </select>
+            <button class="btn btn-default btn-outline btn-rounded btn-success" type="button" name="button" @click="saveArticle">Save</button>
+          </div>
         </div>
 
-        <div class="classes" v-masonry transition-duration="0.3s" item-selector=".classbox">
-          <div class="classbox" v-for="article in articles" v-masonry-tile>
-            <!-- <div class="teacher" :style="'background-image: url(' + article.image + ')'"></div> -->
+        <div v-masonry transition-duration="0.3s" item-selector=".articleBox">
+          <div class="articleBox" v-for="(article, index) in articles" v-masonry-tile>
+            <div class="cancelBtn" @click="doDelete(index)"><i class="fa fa-times"></i></div>
             <div class="top">
-              <div class="classpicture" :style="'background-image: url(' + article.image + ')'"></div>
-              <div class="tag">募資中</div>
+              <div class="articlePicture" :style="'background-image: url(' + article.contents[0].reference + ')'"></div>
               <div class="bookbtn"><i class="fa fa-bookmark-o"></i></div>
             </div>
-            <div class="bottom">
+            <div class="middle">
               <h1 class="classtitle">{{article.title}}</h1>
-              <p>{{article.description}}</p>
-              <div class="orangebar"></div>
+              <p>{{article.desc}}</p>
+            </div>
+            <div class="bottom">
+              <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
+                <div class="authorName">
+                  {{article.author}}
+                  <div class="authorTitle">達人</div>
+                </div>
+              </div>
+              <div class="bottomBar"></div>
             </div>
           </div>
         </div>
@@ -41,14 +56,16 @@
 import { mapGetters } from 'vuex'
 
 import Vue from 'vue'
-import VueMasonryPlugin from 'vue-masonry';
+import VueMasonryPlugin from 'vue-masonry'
+
 
 Vue.use(VueMasonryPlugin)
 
 export default {
   computed: {
     ...mapGetters({
-      articles: 'getArticles'
+      articles: 'getArticles',
+      languages: 'getLanguages'
     })
   },
   methods: {
@@ -56,129 +73,152 @@ export default {
       if(url !== '') {
         this.$store.dispatch('getUrls', url)
       }
+    },
+    doDelete(index) {
+      this.$store.dispatch('deleteArticle', index)
+    },
+    setLanguageCode(code) {
+      this.$store.dispatch('setLocale', code)
+    },
+    saveArticle() {
+      var store = this.$store
+      var articles = this.articles
+      articles.forEach(function(article) {
+        store.dispatch('postArticles', article)
+      })
     }
   },
   data() {
     return {
-      searchUrl: ''
+      searchUrl: '',
+      languageCode: ''
     }
   }
 }
 </script>
 
 <style lang="css" scoped>
-* {
-  position: relative;
-  vertical-align: middle;
-}
+</style>
 
-.classbox {
-  width: 270px;
-  background-color: white;
-  color: #4F4C4B;
-  border-radius: 5px;
-  margin: 30px 15px;
-  display: inline-block;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-}
-.classbox:hover .top .bookbtn {
-  bottom: 10px;
-}
-.classbox:hover .top .classpicture {
-  transform: scale(1.13);
-}
-.classbox:hover .bottom .texts .progressbar .valuebar {
-  width: 200px;
-}
-.classbox .teacher {
-  width: 55px;
-  height: 55px;
-  position: absolute;
-  left: 15px;
-  top: -27.5px;
-  border-radius: 50%;
-  background-image: url("https://hahow.in/images/57ab3d5585b097070042067a");
-  background-size: cover;
-  border: 2px solid white;
-  z-index: 9;
-}
-.classbox .top {
-  height: 160px;
-  overflow: hidden;
-  border-radius: 5px 5px 0 0;
-}
-.classbox .top .classpicture {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-image: url("https://hahow.in/images/574fab4f206cd60900c52a67?width=300");
-  background-size: cover;
-  transition: 0.3s;
-}
-.classbox .top .tag {
-  width: 100%;
-  text-align: center;
-  transform: translateX(95px) translateY(15px) rotate(45deg);
-  padding: 5px 0;
-  background-color: #EB5E00;
-  color: white;
-  font-weight: 700;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-}
-.classbox .top .bookbtn {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  position: absolute;
-  left: 15px;
-  bottom: -50px;
-  background-color: #fff;
-  color: #EB5E00;
-  cursor: pointer;
-  transition: bottom 0.3s;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
-}
-.classbox .top .bookbtn:hover {
-  background-color: #EB5E00;
-  color: white;
-}
-.classbox .top .bookbtn i {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 22px;
-}
-.classbox .bottom {
-  height: 250px;
-  padding: 15px;
-}
-.classbox .bottom .classtitle {
-  font-size: 18px;
-  line-height: 120%;
-  margin-top: 0;
-}
+<style lang="sass" scoped>
+*
+  position: relative
+  vertical-align: middle
 
-.classbox .bottom .orangebar {
-  height: 5px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  background-color: #EB5E00;
-  border-radius: 0 0 5px 5px;
-}
+.articleBox
+  width: 30%
+  background-color: white
+  color: #4F4C4B
+  border-radius: 5px
+  margin: 30px 15px
+  display: inline-block
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
+  &:hover
+    .top .bookbtn
+      bottom: 10px
+    .top .articlePicture
+      transform: scale(1.1)
+    .cancelBtn
+      display: block
+  .cancelBtn
+    display: none
+    position: absolute
+    top: -15px
+    right: -15px
+    width: 30px
+    height: 30px
+    background-color: #fff
+    border-radius: 50%
+    cursor: pointer
+    transition: display 0.5s
+    z-index: 10
+    box-shadow: 0 0 5px 0 #000
+    i
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+  .top
+    height: 160px
+    overflow: hidden
+    border-radius: 5px 5px 0 0
+    .articlePicture
+      width: 100%
+      height: 100%
+      position: absolute
+      background-size: cover
+      transition: 0.3s
+    .bookbtn
+      width: 42px
+      height: 42px
+      border-radius: 50%
+      position: absolute
+      left: 15px
+      bottom: -50px
+      background-color: #fff
+      color: #EB5E00
+      cursor: pointer
+      transition: bottom 0.3s
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
+      &:hover
+        background-color: #EB5E00
+        color: white
+      i
+        position: absolute
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        font-size: 22px
+  .middle
+    height: 150px
+    padding: 15px
+    border-bottom: 1px solid rgba(0,0,0,0.5)
+    .classtitle
+      font-size: 18px
+      line-height: 120%
+      margin-top: 0
+  .bottom
+    height: 80px
+    .author
+      width: 40px
+      height: 40px
+      position: absolute
+      top: 50%
+      left: 20px
+      transform: translateY(-50%)
+      border-radius: 50%
+      background-size: cover
+      border: 2px solid white
+      z-index: 9
+    .authorName
+      position: absolute
+      top: 0
+      left: 40px
+    .authorTitle
+      position: absolute
+      top: 20px
+    .bottomBar
+      height: 5px
+      width: 100%
+      position: absolute
+      bottom: 0
+      left: 0
+      background-color: #FB9678
+      border-radius: 0 0 5px 5px
 
-#category-search {
-  margin-top: 0;
-}
+#category-search
+  margin-top: 0
 
-.searchBtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: 0;
-}
+.searchBtn
+  position: absolute
+  top: 0
+  right: 0
+  background: none
+  border: 0
 
+.form-control
+  width: 50%
+
+.btn
+  border: 1px solid #00c292
 </style>

@@ -99,7 +99,6 @@ const actions = {
           desc: category.desc,
           avatar: category.avatar
         };
-        // console.log('category body: %j', body);
         const response = await axiosInstance.post(url, body);
         commit(types.POST_CATEGORIES, response.data)
 

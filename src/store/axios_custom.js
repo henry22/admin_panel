@@ -4,7 +4,7 @@ import {BASE_URL} from './api_config.js'
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  headers: {'Authorization': 'Bearer 615985b2492f0656b28baa170a48dddf427876e1'}
+  headers: {'Authorization': 'Bearer 46a810083e7fe332ac13da0fadecb951171b6704'}
 })
 
 axiosInstance.interceptors.request.use(request => {

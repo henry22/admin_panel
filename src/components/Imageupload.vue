@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="white-box">
     <label for="input-file-now">Your so fresh input file — Default version</label>
-    <input type="file" id="input-file-now" class="dropify" @change="processFile($event)" />
+    <input type="file" id="input-file-now" class="dropify" @change="processFile($event)">
   </div>
 </template>
 

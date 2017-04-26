@@ -5,6 +5,7 @@ import articles from './modules/articles.js'
 import oauth from './modules/oauth.js'
 import user from './modules/user.js'
 import crawlers from './modules/crawlers.js'
+import language from './modules/language.js'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ export default new Vuex.Store({
     articles,
     oauth,
     user,
-    crawlers
+    crawlers,
+    language
   },
   strict: true
 })

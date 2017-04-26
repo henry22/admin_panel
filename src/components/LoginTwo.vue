@@ -4,15 +4,14 @@
     <div class="white-box">
       <form class="form-horizontal form-material" enctype="multipart/form-data" id="loginform" v-on:submit.prevent="actionLogin()">
         <h3 class="box-title m-b-20">Sign In</h3>
-        <input type="file" name="image">
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" placeholder="Username"  value="account" required v-model="account">
+            <input class="form-control" type="text" placeholder="Username"  value="account" required v-model="account">henry811010@gmail.com
           </div>
         </div>
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control" type="password" placeholder="Password"  value="password" required v-model="password">
+            <input class="form-control" type="password" placeholder="Password"  value="password" required v-model="password">sonic298
           </div>
         </div>
         <div class="form-group">
