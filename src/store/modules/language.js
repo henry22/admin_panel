@@ -66,7 +66,6 @@ const state = {
     {"code":"hu","name":"Hungarian","nativeName":"Magyar"},
     {"code":"ia","name":"Interlingua","nativeName":"Interlingua"},
     {"code":"id","name":"Indonesian","nativeName":"Bahasa Indonesia"},
-    {"code":"ie","name":"Interlingue","nativeName":"Originally called Occidental; then Interlingue after WWII"},
     {"code":"ga","name":"Irish","nativeName":"Gaeilge"},
     {"code":"ig","name":"Igbo","nativeName":"Asụsụ Igbo"},
     {"code":"ik","name":"Inupiaq","nativeName":"Iñupiaq, Iñupiatun"},

@@ -42,7 +42,6 @@ const mutations = {
 
 const actions = {
   postLogin({commit}) {
-    console.log('hello')
     axiosInstance.post('/users/login', {
       account: state.account,
       password: state.password

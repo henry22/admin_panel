@@ -19,7 +19,7 @@
               <option value="">Language</option>
               <option :value="language.code" v-for="language in languages">{{language.nativeName}}</option>
             </select>
-            <button class="btn btn-default btn-outline btn-rounded btn-success" type="button" name="button" @click="saveArticle">Save</button>
+            <button class="btn btn-default btn-outline btn-rounded btn-success pull-right" type="button" name="button" @click="saveArticle">Save</button>
           </div>
         </div>
 
@@ -31,14 +31,15 @@
               <div class="bookbtn"><i class="fa fa-bookmark-o"></i></div>
             </div>
             <div class="middle">
-              <h1 class="classtitle">{{article.title}}</h1>
-              <p>{{article.desc}}</p>
+              <h1 class="classtitle">{{article.title.substr(0, 10)}}</h1>
+              <span class="keyword">{{article.keywords[0].replace(/,/g, ' #')}}</span>
+              <p>{{article.desc.substr(0, 40)}}...</p>
             </div>
             <div class="bottom">
               <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
                 <div class="authorName">
                   {{article.author}}
-                  <div class="authorTitle">達人</div>
+                  <div class="authorTitle"></div>
                 </div>
               </div>
               <div class="bottomBar"></div>
@@ -106,7 +107,7 @@ export default {
   vertical-align: middle
 
 .articleBox
-  width: 30%
+  width: 40%
   background-color: white
   color: #4F4C4B
   border-radius: 5px
@@ -177,6 +178,11 @@ export default {
       font-size: 18px
       line-height: 120%
       margin-top: 0
+      margin-bottom: 5px
+    .keyword
+      color: grey
+      font-size: 12px
+      margin-bottom: 5px
   .bottom
     height: 80px
     .author
@@ -217,7 +223,8 @@ export default {
   border: 0
 
 .form-control
-  width: 50%
+  width: 70%
+  margin-right: 10px
 
 .btn
   border: 1px solid #00c292

@@ -41,7 +41,6 @@ const mutations = {
     var article = new Object()
     var content = new Object();
     var keywordString = parserData['seo']['keywords']
-    // var type = parserData['ogp']['og:type']
 
     content.height = 0;
     content.width = 0;
@@ -62,7 +61,7 @@ const mutations = {
     article.longitude = 0;
     article.latitude = 0;
 
-    article.keywords = keywordString[0].split(',')
+    article.keywords = keywordString
 
     if(typeof article !== 'undefined' && typeof content.reference !== 'undefined') {
       console.log(article)
