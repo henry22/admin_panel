@@ -23,7 +23,11 @@
           </div>
         </div>
 
+        <!-- <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader> -->
+        <!-- <ring-loader :loading="loading" :color="color" :size="size"></ring-loader> -->
+
         <div v-masonry transition-duration="0.3s" item-selector=".articleBox">
+          <ring-loader :loading="loading"></ring-loader>
           <div class="articleBox" v-for="(article, index) in articles" v-masonry-tile>
             <div class="cancelBtn" @click="doDelete(index)"><i class="fa fa-times"></i></div>
             <div class="top">
@@ -52,17 +56,23 @@
 </template>
 
 
-
 <script>
 import { mapGetters } from 'vuex'
 
 import Vue from 'vue'
 import VueMasonryPlugin from 'vue-masonry'
 
+// import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import RingLoader from 'vue-spinner/src/RingLoader.vue'
+
 
 Vue.use(VueMasonryPlugin)
 
 export default {
+  components: {
+    // PulseLoader
+    RingLoader
+  },
   computed: {
     ...mapGetters({
       articles: 'getArticles',
@@ -72,8 +82,12 @@ export default {
   methods: {
     search(url) {
       if(url !== '') {
+        this.loading = true
+        this.$store.dispatch('setArticle')
         this.$store.dispatch('getUrls', url)
+        //this.loading = false
       }
+
     },
     doDelete(index) {
       this.$store.dispatch('deleteArticle', index)
@@ -92,10 +106,12 @@ export default {
   data() {
     return {
       searchUrl: '',
-      languageCode: ''
+      languageCode: '',
+      loading: false
     }
   }
 }
+
 </script>
 
 <style lang="css" scoped>
@@ -107,7 +123,7 @@ export default {
   vertical-align: middle
 
 .articleBox
-  width: 40%
+  width: 35%
   background-color: white
   color: #4F4C4B
   border-radius: 5px
@@ -228,4 +244,9 @@ export default {
 
 .btn
   border: 1px solid #00c292
+
+.v-spinner
+  position: absolute
+  left: 50%
+  top: 50%
 </style>

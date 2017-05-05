@@ -10,6 +10,9 @@ import auth from './store/modules/oauth.js'
 
 import { sync } from 'vuex-router-sync'
 
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
@@ -30,12 +33,19 @@ router.beforeEach((to, from, next) => {
         path: '/login'
         //query: { redirect: to.fullPath }
       })
+      NProgress.done()
     } else {
       next()
+      NProgress.done()
     }
   } else {
     next() // 确保一定要调用 next()
+    NProgress.done()
   }
+})
+
+router.afterEach(transition => {
+  NProgress.start()
 })
 
 /* eslint-disable no-new */

@@ -79,11 +79,19 @@ const mutations = {
   },
   [types.SET_LOCALE](state, code) {
     state.locale = code
+  },
+  [types.SET_ARTICLE](state) {
+    state.articles = []
+  },
+  [types.CLEAR_URLSET](state) {
+    state.urlSet.clear()
   }
 }
 
 const actions = {
   getUrls({commit}, url) {
+    console.log(state.urlSet)
+    commit(types.CLEAR_URLSET)
     axiosInstance.get('/crawlers/urls', {
       params: {
         url: url
@@ -118,6 +126,9 @@ const actions = {
   },
   setLocale({commit}, code) {
     commit(types.SET_LOCALE, code)
+  },
+  setArticle({commit}) {
+    commit(types.SET_ARTICLE)
   }
 }
 

@@ -19,5 +19,9 @@ export const SET_PHOTO = 'SET_PHOTO'
 export const SET_IMAGE_FILE = 'SET_IMAGE_FILE'
 
 export const DELETE_ARTICLE = 'DELETE_ARTICLE'
+export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
+export const SET_ARTICLE = 'SET_ARTICLE'
 
 export const SET_LOCALE = 'SET_LOCALE'
+
+export const CLEAR_URLSET = 'CLEAR_URLSET'

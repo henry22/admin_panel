@@ -62,12 +62,6 @@ export default {
         return {}
       }
     }
-    // editorMode: {
-    //   type: String,
-    //   default() {
-    //     return ''
-    //   }
-    // }
   },
   components: {
     ImageUpload
