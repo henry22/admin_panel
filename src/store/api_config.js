@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://ec2server.santanica.co/api/v1'
+export const BASE_URL = 'https://nextstop.ai/api/v1'

@@ -1,15 +1,20 @@
 <template lang="html">
   <div>
-    <p>hello</p>
+    hello
   </div>
 </template>
 
 <script>
 export default {
+  created: function() {
 
+    //this.$route.query.access_token
+  }
 }
 
 </script>
-
+<script>
+  console.log('aaaaaaa')
+</script>
 <style lang="css">
 </style>

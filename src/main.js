@@ -31,7 +31,6 @@ router.beforeEach((to, from, next) => {
     if (!store.getters.loggedIn) {
       next({
         path: '/login'
-        //query: { redirect: to.fullPath }
       })
       NProgress.done()
     } else {

@@ -3,7 +3,7 @@ import DashboardView from './components/Dashboard'
 import ArticleUploadView from './components/ArticleUpload'
 import ArticlesView from './components/Articles'
 import CategoriesView from './components/Categories'
-// import OauthView from './components/Oauth'
+import OauthView from './components/Oauth'
 
 const routes = [
   {
@@ -28,12 +28,12 @@ const routes = [
         path: 'categories',
         component: CategoriesView,
         meta: { requiresAuth: true }
-      },
-      // {
-      //   path: 'oauth',
-      //   component: OauthView
-      // }
+      }
     ]
+  },
+  {
+    path: '/oauth',
+    component: OauthView
   }
 ];
 

@@ -57,17 +57,18 @@ const actions = {
         commit('SET_USER', response)
       })
       .catch((error) => {
-        switch(error.response.data.code) {
-          case 90001:
-            console.log('Bad Request')
-            break
-          case 10010:
-            console.log('AuthenticationFailed')
-            break
-          case 90002:
-            console.log('Unprocessable Entity')
-            break
-        }
+        console.log(error)
+        // switch(error.response.data.code) {
+        //   case 90001:
+        //     console.log('Bad Request')
+        //     break
+        //   case 10010:
+        //     console.log('AuthenticationFailed')
+        //     break
+        //   case 90002:
+        //     console.log('Unprocessable Entity')
+        //     break
+        // }
       })
   },
   logout({commit}) {

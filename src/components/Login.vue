@@ -64,11 +64,6 @@
 import { mapActions } from 'vuex'
 
 export default {
-  // methods: {
-  //   loginAction(o) {
-  //     this.$store.dispatch('postLogin', o)
-  //   }
-  // },
   methods: {
     ...mapActions({
       actionLogin: 'postLogin'

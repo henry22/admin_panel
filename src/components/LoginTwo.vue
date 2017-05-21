@@ -6,12 +6,12 @@
         <h3 class="box-title m-b-20">Sign In</h3>
         <div class="form-group ">
           <div class="col-xs-12">
-            <input class="form-control" type="text" placeholder="Username"  value="account" required v-model="account">henry811010@gmail.com
+            <input class="form-control" type="text" placeholder="Username"  value="account" required v-model="account">
           </div>
         </div>
         <div class="form-group">
           <div class="col-xs-12">
-            <input class="form-control" type="password" placeholder="Password"  value="password" required v-model="password">sonic298
+            <input class="form-control" type="password" placeholder="Password"  value="password" required v-model="password">
           </div>
         </div>
         <div class="form-group">
