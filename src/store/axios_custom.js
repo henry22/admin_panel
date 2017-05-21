@@ -36,10 +36,10 @@ axiosInstance.interceptors.response.use(function(response) {
       }
     })
       .then(({data}) => {
-        console.log('test')
         window.localStorage.setItem('accessToken', data.token)
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
         originalRequest.headers['Authorization'] = 'Bearer ' + data.token
+        console.log(window.localStorage.getItem('test'))
         return axios(originalRequest)
       })
   }
