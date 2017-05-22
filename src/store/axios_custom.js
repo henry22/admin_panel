@@ -1,9 +1,13 @@
 import axios from 'axios'
 import {ACCESS_TOKEN} from './key.js'
 import {BASE_URL} from './api_config.js'
+import Qs from 'qs'
 
 export const axiosInstance = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
+  paramsSerializer: function(params) {
+   return Qs.stringify(params, {arrayFormat: 'repeat'})
+ }
   // headers: {'Authorization': 'Bearer bf35e5199e9a37ca3736f65567b2aea3dc085c92'}
 })
 
@@ -36,13 +40,22 @@ axiosInstance.interceptors.response.use(function(response) {
       }
     })
       .then(({data}) => {
-        window.localStorage.setItem('accessToken', data.token)
-        axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + data.token
-        originalRequest.headers['Authorization'] = 'Bearer ' + data.token
-        console.log(window.localStorage.getItem('test'))
+        var accessToken = getQueryString(data.substring(1),'access_token')
+        window.localStorage.setItem('accessToken', accessToken)
+        axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
+        originalRequest.headers['Authorization'] = 'Bearer ' + accessToken
+        //console.log(window.localStorage.getItem('test'))
         return axios(originalRequest)
       })
   }
 
   return Promise.reject(error)
 })
+
+function getQueryString(data, key) {
+  var splitData = data.split("&")
+  for (var i=0; i<splitData.length; i++) {
+    var pair = splitData[i].split("=")
+    if(pair[0] == key) { return pair[1] }
+   }
+}

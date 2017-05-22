@@ -21,6 +21,8 @@ export const SET_IMAGE_FILE = 'SET_IMAGE_FILE'
 export const DELETE_ARTICLE = 'DELETE_ARTICLE'
 export const CLEAR_ARTICLES = 'CLEAR_ARTICLES'
 export const SET_ARTICLE = 'SET_ARTICLE'
+export const SET_ARTICLES = 'SET_ARTICLES'
+export const DELETE_ARTICLES = 'DELETE_ARTICLES'
 
 export const SET_LOCALE = 'SET_LOCALE'
 

@@ -92,80 +92,76 @@ export default {
 </script>
 
 
-<style lang="css" scoped>
-#avatar {
-  width: 40%;
-  height: 40%;
-  display: block;
-  margin: 0 auto;
-}
+<style lang="sass" scoped>
+#avatar
+  width: 40%
+  height: 40%
+  display: block
+  margin: 0 auto
 
-.bg-title {
-  line-height: 50px;
-}
+.bg-title
+  line-height: 50px
 
-#category-search {
-  border: 1px solid #4c5667;
-  margin-top: 0;
-}
-#editButton {
-  background-color: #3498DB;
-  border: none;
-  color: #fff;
-}
-#editButton:hover {
-  background-color: #2980B9;
-}
+#category-search
+  border: 1px solid #4c5667
+  margin-top: 0
 
-.plus-icon {
-  display: block;
-  height: 2px;
-  width: 16px;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-.plus-icon:after {
-  content: '';
-  display: block;
-  height: 16px;
-  width: 2px;
-  background: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -8px -1px;
-}
-.add-button {
-  display: block;
-  float: right;
-  width: 40px;
-  height: 40px;
-  background: #32ebc7;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  transition: transform .2s ease-in-out, background .2s ease-in-out;
-}
-.add-button:hover {
-  transform: scale(1.25);
-}
-.add-button:hover + .label {
-  opacity: 1;
-  visibilty: visible;
-  transform: translateX(0);
-}
-.add-button:active {
-  transform: scale(0.8);
-}
+#editButton
+  background-color: #3498DB
+  border: none
+  color: #fff
 
-.searchBtn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: none;
-  border: 0;
-}
+#editButton:hover
+  background-color: #2980B9
+
+.plus-icon
+  display: block
+  height: 2px
+  width: 16px
+  background: #fff
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+.plus-icon:after
+  content: ''
+  display: block
+  height: 16px
+  width: 2px
+  background: #fff
+  position: absolute
+  top: 50%
+  left: 50%
+  margin: -8px -1px
+
+.add-button
+  display: block
+  float: right
+  width: 40px
+  height: 40px
+  background: #32ebc7
+  border-radius: 50%
+  cursor: pointer
+  position: relative
+  transition: transform .2s ease-in-out, background .2s ease-in-out
+
+.add-button:hover
+  transform: scale(1.25)
+
+.add-button:hover + .label
+  opacity: 1
+  visibilty: visible
+  transform: translateX(0)
+
+.add-button:active
+  transform: scale(0.8)
+
+.searchBtn 
+  position: absolute
+  top: 0
+  right: 0
+  background: none
+  border: 0
+
 </style>

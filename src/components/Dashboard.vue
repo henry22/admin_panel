@@ -5,6 +5,7 @@
     <router-view></router-view>
     <router-view name="upload"></router-view>
     <router-view name="articles"></router-view>
+    <router-view name="crawler"></router-view>
     <router-view name="categories"></router-view>
   </div>
 </template>

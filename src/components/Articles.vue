@@ -1,43 +1,29 @@
 <template lang="html">
-  <div>
-    <div id="page-wrapper">
-      <div class="container-fluid">
-        <div class="row bg-title">
-          <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-            <ul class="nav navbar-top-links navbar-left hidden-xs">
-              <li>
-                <form role="search" class="app-search hidden-xs" v-on:submit.prevent="search">
-                    <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
-                    <button type="submit" class="searchBtn" @click="search(searchUrl)"><i class="fa fa-search"></i></button>
-                </form>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
-            <select class="form-control pull-left row b-none" name="" @change="setLanguageCode(languageCode)" v-model="languageCode">
-              <option value="">Language</option>
-              <option :value="language.code" v-for="language in languages">{{language.nativeName}}</option>
-            </select>
-            <button class="btn btn-default btn-outline btn-rounded btn-success pull-right" type="button" name="button" @click="saveArticle">Save</button>
-          </div>
+  <div id="page-wrapper">
+    <div class="container-fluid">
+      <div class="row bg-title">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+          <ul class="nav navbar-top-links navbar-left hidden-xs">
+            <li>
+              <form role="search" class="app-search hidden-xs" v-on:submit.prevent="search">
+                <input type="text" placeholder="Search Article..." class="form-control" id="articles-search" v-model="keywords" @keyup.enter="search(keywords)">
+                <button type="submit" class="searchBtn" @click="search(keywords)"><i class="fa fa-search"></i></button>
+              </form>
+            </li>
+          </ul>
         </div>
-
-        <!-- <pulse-loader :loading="loading" :color="color" :size="size"></pulse-loader> -->
-        <!-- <ring-loader :loading="loading" :color="color" :size="size"></ring-loader> -->
-
-        <div v-masonry transition-duration="0.3s" item-selector=".articleBox">
-          <ring-loader :loading="loading"></ring-loader>
+      </div>
+      <div class="articles">
+        <div v-masonry transition-duration="0.5s" item-selector=".articleBox" column-width=".articleBox">
           <div class="articleBox" v-for="(article, index) in articles" v-masonry-tile>
-            <div class="cancelBtn" @click="doDelete(index)"><i class="fa fa-times"></i></div>
+            <div class="cancelBtn" @click="deleteArticle(article.id)"><i class="fa fa-times"></i></div>
             <div class="top">
               <div class="articlePicture" :style="'background-image: url(' + article.contents[0].reference + ')'"></div>
-              <div class="bookbtn"><i class="fa fa-bookmark-o"></i></div>
             </div>
             <div class="middle">
-              <h1 class="classtitle">{{article.title.substr(0, 10)}}</h1>
+              <h1 class="classtitle">{{article.title}}</h1>
               <span class="keyword">{{article.keywords[0].replace(/,/g, ' #')}}</span>
-              <p>{{article.desc.substr(0, 40)}}...</p>
+              <p>{{article.desc}}...</p>
             </div>
             <div class="bottom">
               <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
@@ -46,7 +32,6 @@
                   <div class="authorTitle"></div>
                 </div>
               </div>
-              <div class="bottomBar"></div>
             </div>
           </div>
         </div>
@@ -55,83 +40,82 @@
   </div>
 </template>
 
-
 <script>
 import { mapGetters } from 'vuex'
-
 import Vue from 'vue'
 import VueMasonryPlugin from 'vue-masonry'
-
-// import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-import RingLoader from 'vue-spinner/src/RingLoader.vue'
-
 
 Vue.use(VueMasonryPlugin)
 
 export default {
-  components: {
-    // PulseLoader
-    RingLoader
-  },
   computed: {
     ...mapGetters({
-      articles: 'getArticles',
-      languages: 'getLanguages'
+      articles: 'showArticles'
     })
   },
+  created: function () {
+    this.$store.dispatch('takeArticles')
+  },
   methods: {
-    search(url) {
-      if(url !== '') {
-        this.loading = true
-        this.$store.dispatch('setArticle')
-        this.$store.dispatch('getUrls', url)
-        //this.loading = false
-      }
-
+    deleteArticle (deleteId) {
+      this.$store.dispatch('deleteArticles', deleteId)
     },
-    doDelete(index) {
-      this.$store.dispatch('deleteArticle', index)
-    },
-    setLanguageCode(code) {
-      this.$store.dispatch('setLocale', code)
-    },
-    saveArticle() {
-      var store = this.$store
-      var articles = this.articles
-      articles.forEach(function(article) {
-        store.dispatch('postArticles', article)
-      })
+    search (keywords) {
+      let filterKeywords = keywords.split(/[#,\s]/g)
+      console.log(filterKeywords)
+      this.$store.dispatch('takeArticles', filterKeywords)
     }
   },
-  data() {
+  data () {
     return {
-      searchUrl: '',
-      languageCode: '',
-      loading: false
+      keywords: ''
     }
   }
 }
-
 </script>
 
-<style lang="css" scoped>
-</style>
-
 <style lang="sass" scoped>
+#articles-search
+  border: 1px solid #4c5667
+  margin-top: 0
+
+.searchBtn
+  position: absolute
+  top: 0
+  right: 0
+  background: none
+  border: 0
+
+.articles
+  background-color: #EEEEEE
+
+.sortArticle
+  padding: 30px 5px
+  .sort
+    list-style: none
+    li
+      float: left
+      line-height: 15px
+      margin-right: 15px
+      padding-right: 15px
+      cursor: pointer
+      color: rgba(0,0,0,0.5)
+      font-weight: bold
+      &:first-child
+        border-right: 1px solid rgba(0,0,0,0.5)
 *
   position: relative
   vertical-align: middle
 
 .articleBox
-  width: 35%
+  width: 30%
   background-color: white
   color: #4F4C4B
   border-radius: 5px
-  margin: 30px 15px
-  display: inline-block
+  margin: 20px 10px
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
   &:hover
-    .top .bookbtn
+    .top .lovebtn
       bottom: 10px
     .top .articlePicture
       transform: scale(1.1)
@@ -156,7 +140,7 @@ export default {
       left: 50%
       transform: translate(-50%, -50%)
   .top
-    height: 160px
+    height: 200px
     overflow: hidden
     border-radius: 5px 5px 0 0
     .articlePicture
@@ -165,31 +149,11 @@ export default {
       position: absolute
       background-size: cover
       transition: 0.3s
-    .bookbtn
-      width: 42px
-      height: 42px
-      border-radius: 50%
-      position: absolute
-      left: 15px
-      bottom: -50px
-      background-color: #fff
-      color: #EB5E00
-      cursor: pointer
-      transition: bottom 0.3s
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
-      &:hover
-        background-color: #EB5E00
-        color: white
-      i
-        position: absolute
-        left: 50%
-        top: 50%
-        transform: translate(-50%, -50%)
-        font-size: 22px
+
   .middle
-    height: 150px
+    height: 100%
     padding: 15px
-    border-bottom: 1px solid rgba(0,0,0,0.5)
+    border-bottom: 1px solid rgba(0,0,0,0.1)
     .classtitle
       font-size: 18px
       line-height: 120%
@@ -200,7 +164,10 @@ export default {
       font-size: 12px
       margin-bottom: 5px
   .bottom
-    height: 80px
+    height: 100%
+    padding: 30px
+    background-color: #F9F9F9
+    border-radius: 0 0 5px 5px
     .author
       width: 40px
       height: 40px
@@ -211,7 +178,7 @@ export default {
       border-radius: 50%
       background-size: cover
       border: 2px solid white
-      z-index: 9
+      z-index: 2
     .authorName
       position: absolute
       top: 0
@@ -219,34 +186,5 @@ export default {
     .authorTitle
       position: absolute
       top: 20px
-    .bottomBar
-      height: 5px
-      width: 100%
-      position: absolute
-      bottom: 0
-      left: 0
-      background-color: #FB9678
-      border-radius: 0 0 5px 5px
 
-#category-search
-  margin-top: 0
-
-.searchBtn
-  position: absolute
-  top: 0
-  right: 0
-  background: none
-  border: 0
-
-.form-control
-  width: 70%
-  margin-right: 10px
-
-.btn
-  border: 1px solid #00c292
-
-.v-spinner
-  position: absolute
-  left: 50%
-  top: 50%
 </style>

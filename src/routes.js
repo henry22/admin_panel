@@ -2,8 +2,8 @@ import LoginView from './components/LoginTwo'
 import DashboardView from './components/Dashboard'
 import ArticleUploadView from './components/ArticleUpload'
 import ArticlesView from './components/Articles'
+import CrawlerView from './components/Crawler'
 import CategoriesView from './components/Categories'
-import OauthView from './components/Oauth'
 
 const routes = [
   {
@@ -25,15 +25,16 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: 'crawler',
+        component: CrawlerView,
+        meta: { requiresAuth: true }
+      },
+      {
         path: 'categories',
         component: CategoriesView,
         meta: { requiresAuth: true }
       }
     ]
-  },
-  {
-    path: '/oauth',
-    component: OauthView
   }
 ];
 
