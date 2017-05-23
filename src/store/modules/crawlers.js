@@ -5,7 +5,7 @@ import {axiosInstance} from '../axios_custom.js'
 const state = {
   parser: {},
   urls: [],
-  articles: [
+  crawlerArticles: [
       // {
       //   imageUrl: "https://hahow.in/images/57623a93f1399b0900e2355f",
       //   image: "https://hahow.in/images/57622ff5f1399b0900e234d4",
@@ -32,42 +32,53 @@ const state = {
 const getters = {
   getParsers: state => state.parsers,
   getUrl: state => state.urls,
-  getArticles: state => state.articles
+  getArticles: state => state.crawlerArticles
 }
 
 const mutations = {
   [types.SET_PARSER](state, parser) {
     var parserData = parser.data
     var article = new Object()
-    var content = new Object();
+    var content = new Object()
     var keywordString = parserData['seo']['keywords']
 
-    content.height = 0;
-    content.width = 0;
-    if(typeof parserData['ogp']['og:image'][0] !== 'undefined') {
-      content.reference = parserData['ogp']['og:image'][0];
+    content.height = 0
+    content.width = 0
+    if(typeof parserData['ogp']['og:image'] !== 'undefined') {
+      content.reference = parserData['ogp']['og:image'][0]
     }
-    content.content_type = 2;
-    content.keywords;
+    content.content_type = 2
+    content.keywords
 
-    article.title = parserData['ogp']['og:title'][0]
-    article.desc = parserData['ogp']['og:description'][0]
-    article.from = parserData['ogp']['og:url'][0]
-    article.author = parserData['seo']['author'][0];
-    article.author_avatar = parserData['seo']['author-avatar-20'][0];
-    article.site_name = parserData['ogp']['og:site_name'][0]
-    article.contents = [content];
-    article.locale = state.locale;
-    article.longitude = 0;
-    article.latitude = 0;
+    if(typeof parserData['ogp']['og:title'] !== 'undefined') {
+      article.title = parserData['ogp']['og:title'][0]
+    }
+    if(typeof parserData['ogp']['og:description'] !== 'undefined') {
+      article.desc = parserData['ogp']['og:description'][0]
+    }
+    if(typeof parserData['ogp']['og:url'] !== 'undefined') {
+      article.from = parserData['ogp']['og:url'][0]
+    }
+    if(typeof parserData['seo']['author'] !== 'undefined') {
+      article.author = parserData['seo']['author'][0]
+    }
+    if(typeof parserData['seo']['author-avatar-20'] !== 'undefined') {
+      article.author_avatar = parserData['seo']['author-avatar-20'][0]
+    }
+    if(typeof parserData['ogp']['og:site_name'] !== 'undefined') {
+      article.site_name = parserData['ogp']['og:site_name'][0]
+    }
+    article.contents = [content]
+    article.locale = state.locale
+    article.longitude = 0
+    article.latitude = 0
 
     article.keywords = keywordString
 
     if(typeof article !== 'undefined' && typeof content.reference !== 'undefined') {
-      console.log(article)
       if(!state.urlSet.has(article.from)) {
         state.urlSet.add(article.from)
-        state.articles.push(article)
+        state.crawlerArticles.push(article)
       }
     }
   },
@@ -75,13 +86,13 @@ const mutations = {
     state.urls = urls
   },
   [types.DELETE_ARTICLE](state, index) {
-    state.articles.splice(index, 1)
+    state.crawlerArticles.splice(index, 1)
   },
   [types.SET_LOCALE](state, code) {
     state.locale = code
   },
   [types.SET_ARTICLE](state) {
-    state.articles = []
+    state.crawlerArticles = []
   },
   [types.CLEAR_URLSET](state) {
     state.urlSet.clear()
@@ -90,7 +101,6 @@ const mutations = {
 
 const actions = {
   getUrls({commit}, url) {
-    console.log(state.urlSet)
     commit(types.CLEAR_URLSET)
     axiosInstance.get('/crawlers/urls', {
       params: {
@@ -98,24 +108,19 @@ const actions = {
       }
     })
       .then((response) => {
-        //console.log(response)
-        var max = 5;
-        var count = 0;
+
         for(var index in response.data) {
           var articleUrl = response.data[index]
-          count++
 
-          if(count <= max) {
-            axiosInstance.get('/crawlers/parser', {
-              params: {
-                url: articleUrl
-              }
+          axiosInstance.get('/crawlers/parser', {
+            params: {
+              url: articleUrl
+            }
+          })
+            .then((response) => {
+              commit(types.SET_PARSER, response)
             })
-              .then((response) => {
-                commit('SET_PARSER', response)
-              })
-              .catch((error) => console.log(error))
-          }
+            .catch((error) => console.log(error))
         }
         commit('SET_URLS', response)
       })

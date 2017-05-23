@@ -7,8 +7,8 @@ export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   paramsSerializer: function(params) {
    return Qs.stringify(params, {arrayFormat: 'repeat'})
- }
-  // headers: {'Authorization': 'Bearer bf35e5199e9a37ca3736f65567b2aea3dc085c92'}
+  }
+  // headers: {'Authorization': 'Bearer 1b003b9d45be7bc6005c9e12d6aaf4346b035d8d'}
 })
 
 axiosInstance.interceptors.request.use(request => {
@@ -44,7 +44,6 @@ axiosInstance.interceptors.response.use(function(response) {
         window.localStorage.setItem('accessToken', accessToken)
         axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + accessToken
         originalRequest.headers['Authorization'] = 'Bearer ' + accessToken
-        //console.log(window.localStorage.getItem('test'))
         return axios(originalRequest)
       })
   }

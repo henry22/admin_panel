@@ -15,7 +15,7 @@
       <ul class="nav navbar-top-links navbar-right pull-right">
         <li class="dropdown">
           <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#">
-            <img src="../../static/plugins/images/users/1.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">Steave</b>
+            <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{account}}</b>
           </a>
           <ul class="dropdown-menu dropdown-user animated flipInY">
             <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
@@ -38,18 +38,23 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   methods: {
     ...mapActions({
       logout: 'logout'
     })
+  },
+  computed: {
+    ...mapGetters({
+      account: 'getAccount'
+    })
   }
 }
 </script>
 
-<style lang="css">
-  .top-left-part {
-    background-color: #01C0C8;
-  }
+<style lang="sass" scoped>
+.top-left-part
+  background-color: #01C0C8
 </style>

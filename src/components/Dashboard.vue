@@ -7,6 +7,7 @@
     <router-view name="articles"></router-view>
     <router-view name="crawler"></router-view>
     <router-view name="categories"></router-view>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 

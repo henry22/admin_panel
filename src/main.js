@@ -6,16 +6,22 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import store from './store'
 
-import auth from './store/modules/oauth.js'
-
 import { sync } from 'vuex-router-sync'
 
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
+import VueProgressBar from 'vue-progressbar'
+
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
+
+Vue.use(VueProgressBar, {
+  color: 'rgb(17, 244, 252)',
+  failedColor: 'red',
+  height: '3px'
+})
 
 export const router = new VueRouter({
   mode: 'history',
@@ -53,11 +59,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App },
-  created() {
-    window.onbeforeunload = function(e) {
-      e.preventDafault()
-      alert('leaving')
-    }
-  }
+  components: { App }
 })
