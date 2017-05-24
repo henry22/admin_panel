@@ -54,10 +54,10 @@ router.afterEach(transition => {
 })
 
 /* eslint-disable no-new */
-new Vue({
+const app = new Vue({
   el: '#app',
-  router,
   store,
+  router,
   template: '<App/>',
   components: { App }
 })

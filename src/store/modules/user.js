@@ -8,12 +8,18 @@ import {IS_LOGGEDIN} from '../key.js'
 const state = {
   user: {},
   account: '',
-  password: ''
+  password: '',
+  login: null
 }
 
 const getters = {
   getUser: state => state.user,
-  loggedIn: () => window.localStorage.getItem(IS_LOGGEDIN, false),
+  loggedIn: state => {
+    if(state.login === null) {
+      state.login = window.localStorage.getItem(IS_LOGGEDIN, false)
+    }
+    return state.login
+  },
   getAccount: state => state.account,
   getPassword: state => state.password
 }
@@ -24,8 +30,8 @@ const mutations = {
   },
   [types.SET_LOGIN](state, isLoggedIn) {
     if(isLoggedIn) {
-      console.log('login')
       window.localStorage.setItem(IS_LOGGEDIN, isLoggedIn)
+      state.login = isLoggedIn
       router.push('/categories')
     } else {
       window.localStorage.clear()

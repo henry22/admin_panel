@@ -7,7 +7,7 @@
             <ul class="nav navbar-top-links navbar-left hidden-xs">
               <li>
                 <form role="search" class="app-search hidden-xs" v-on:submit.prevent="search">
-                    <input type="text" placeholder="Search Category..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
+                    <input type="text" placeholder="Type URL..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
                     <button type="submit" class="searchBtn" @click="search(searchUrl)"><i class="fa fa-search"></i></button>
                 </form>
               </li>
@@ -16,7 +16,7 @@
 
           <div class="col-md-3 col-sm-4 col-xs-6 pull-right">
             <select class="form-control pull-left row b-none" name="" @change="setLanguageCode(languageCode)" v-model="languageCode">
-              <option value="">Language</option>
+              <option value="" selected>Language</option>
               <option :value="language.code" v-for="language in languages">{{language.nativeName}}</option>
             </select>
             <button class="btn btn-default btn-outline btn-rounded btn-success pull-right" type="button" name="button" @click="saveArticle">Save</button>
@@ -32,7 +32,7 @@
             </div>
             <div class="middle">
               <h1 class="classtitle">{{article.title.substr(0, 10)}}</h1>
-              <span class="keyword">{{article.keywords[0].replace(/,/g, ' #')}}</span>
+              <span class="keyword">#{{article.keywords.join(',').replace(/,/g, ' #').substr(0, 20)}}</span>
               <p>{{article.desc.substr(0, 40)}}...</p>
             </div>
             <div class="bottom">
@@ -74,7 +74,7 @@ export default {
         this.$Progress.start()
         this.$store.dispatch('setArticle')
         this.$store.dispatch('getUrls', url)
-        // this.$Progress.finish()
+        this.$Progress.finish()
       }
     },
     doDelete(index) {
@@ -89,6 +89,7 @@ export default {
       articles.forEach(function(article) {
         store.dispatch('postArticles', article)
       })
+      this.searchUrl = ''
     }
   },
   data() {
@@ -185,7 +186,9 @@ export default {
     .keyword
       color: grey
       font-size: 12px
-      margin-bottom: 5px
+      font-weight: bold
+    p
+      margin-top: 5px
   .bottom
     height: 80px
     .author

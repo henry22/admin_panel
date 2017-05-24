@@ -21,9 +21,9 @@
               <div class="articlePicture" :style="'background-image: url(' + article.contents[0].reference + ')'"></div>
             </div>
             <div class="middle">
-              <h1 class="classtitle">{{article.title}}</h1>
+              <h1 class="classtitle">{{article.title.substr(0, 25)}}</h1>
               <span class="keyword">{{article.keywords[0].replace(/,/g, ' #')}}</span>
-              <p>{{article.desc}}...</p>
+              <p>{{article.desc.substr(0, 60)}}...</p>
             </div>
             <div class="bottom">
               <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
@@ -63,6 +63,9 @@ export default {
     search (keywords) {
       let filterKeywords = keywords.split(/[#,\s]/g)
       console.log(filterKeywords)
+      if(filterKeywords.length == 0) {
+        filterKeywords.push('旅遊')
+      }
       this.$store.dispatch('takeArticles', filterKeywords)
     }
   },
@@ -162,7 +165,9 @@ export default {
     .keyword
       color: grey
       font-size: 12px
-      margin-bottom: 5px
+      font-weight: bold
+    p
+      margin-top: 5px
   .bottom
     height: 100%
     padding: 30px

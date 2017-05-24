@@ -35,45 +35,58 @@ const getters = {
   getArticles: state => state.crawlerArticles
 }
 
+function typeString(data, key) {
+  if(typeof data !== 'undefined' && typeof data !== 'null' && data.hasOwnProperty(key)) {
+    return data[key][0]
+  } else {
+    return ''
+  }
+}
+
 const mutations = {
   [types.SET_PARSER](state, parser) {
     var parserData = parser.data
+    var ogp = parser.data['ogp']
+    var seo = parser.data['seo']
     var article = new Object()
     var content = new Object()
-    var keywordString = parserData['seo']['keywords']
 
     content.height = 0
     content.width = 0
-    if(typeof parserData['ogp']['og:image'] !== 'undefined') {
-      content.reference = parserData['ogp']['og:image'][0]
-    }
+
+    content.reference = typeString(ogp, 'og:image')
+
     content.content_type = 2
     content.keywords
 
-    if(typeof parserData['ogp']['og:title'] !== 'undefined') {
-      article.title = parserData['ogp']['og:title'][0]
-    }
-    if(typeof parserData['ogp']['og:description'] !== 'undefined') {
-      article.desc = parserData['ogp']['og:description'][0]
-    }
-    if(typeof parserData['ogp']['og:url'] !== 'undefined') {
-      article.from = parserData['ogp']['og:url'][0]
-    }
-    if(typeof parserData['seo']['author'] !== 'undefined') {
-      article.author = parserData['seo']['author'][0]
-    }
-    if(typeof parserData['seo']['author-avatar-20'] !== 'undefined') {
-      article.author_avatar = parserData['seo']['author-avatar-20'][0]
-    }
-    if(typeof parserData['ogp']['og:site_name'] !== 'undefined') {
-      article.site_name = parserData['ogp']['og:site_name'][0]
-    }
+    article.title = typeString(ogp, 'og:title')
+
+    article.desc = typeString(ogp, 'og:description')
+
+    article.from = typeString(ogp, 'og:url')
+
+    article.author = typeString(seo, 'author')
+
+    article.author_avatar = typeString(seo, 'author-avatar-20')
+
+    article.site_name = typeString(ogp, 'og:site_name')
+
     article.contents = [content]
     article.locale = state.locale
     article.longitude = 0
     article.latitude = 0
 
-    article.keywords = keywordString
+    if(seo.hasOwnProperty('keywords')) {
+      let keywordString = seo['keywords'][0]
+      article.keywords = keywordString.split(/[,、]/g)
+      for(var i=0; i < article.keywords.length; i++) {
+        if(article.keywords[i] === '') {
+          article.keywords.splice(i, 1)
+        }
+      }
+    } else {
+      article.keywords = null
+    }
 
     if(typeof article !== 'undefined' && typeof content.reference !== 'undefined') {
       if(!state.urlSet.has(article.from)) {
@@ -110,6 +123,7 @@ const actions = {
       .then((response) => {
 
         for(var index in response.data) {
+
           var articleUrl = response.data[index]
 
           axiosInstance.get('/crawlers/parser', {

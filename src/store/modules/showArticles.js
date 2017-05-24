@@ -24,12 +24,12 @@ const mutations = {
 }
 
 const actions = {
-  async takeArticles ({commit}, keywords) {
+  async takeArticles ({commit}, keywords = '旅遊') {
     try {
       const articlesUrl = '/articles'
       const articlesBody = {
         params: {
-          keywords: keywords || '旅遊',
+          keywords: keywords,
           skip: 0,
           limit: 50
         }

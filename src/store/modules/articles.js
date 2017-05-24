@@ -13,7 +13,7 @@ const getters = {
 
 const mutations = {
   [types.CLEAR_ARTICLES]() {
-    crawlers.state.articles = []
+    crawlers.state.crawlerArticles = []
   }
 }
 
