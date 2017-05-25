@@ -23,8 +23,7 @@ export default {
 }
 </script>
 
-<style lang="css">
-  .sidebar {
-    height: auto;
-  }
+<style lang="sass" scoped>
+.sidebar
+  height: auto
 </style>

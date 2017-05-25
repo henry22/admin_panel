@@ -63,9 +63,8 @@ export default {
 }
 </script>
 
-<style lang="css">
-  .panel-blue .panel-heading,
-  .panel-info .panel-heading {
-    background-color: #01c65d;
-  }
+<style lang="sass" scoped>
+.panel-blue .panel-heading,
+.panel-info .panel-heading
+  background-color: #01c65d
 </style>

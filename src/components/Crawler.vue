@@ -31,8 +31,8 @@
               <div class="bookbtn"><i class="fa fa-bookmark-o"></i></div>
             </div>
             <div class="middle">
-              <h1 class="classtitle">{{article.title.substr(0, 10)}}</h1>
-              <span class="keyword">#{{article.keywords.join(',').replace(/,/g, ' #').substr(0, 20)}}</span>
+              <h1 class="articleTitle">{{article.title.substr(0, 10)}}</h1>
+              <span class="keyword">{{showKeywords(article.keywords)}}</span>
               <p>{{article.desc.substr(0, 40)}}...</p>
             </div>
             <div class="bottom">
@@ -90,6 +90,13 @@ export default {
         store.dispatch('postArticles', article)
       })
       this.searchUrl = ''
+    },
+    showKeywords: function (keywords) {
+      try {
+        return keywords.join(',').replace(/,/g, ' #').substr(0, 20)
+      } catch(error) {
+        console.log(error)
+      }
     }
   },
   data() {
@@ -102,15 +109,13 @@ export default {
 
 </script>
 
-<style lang="css" scoped>
-</style>
-
 <style lang="sass" scoped>
-*
-  position: relative
-  vertical-align: middle
 
-.articleBox
+$font-size: 18px
+$line-height: 1.4
+$lines-to-show: 3
+
+@mixin crawler_box
   width: 30%
   background-color: white
   color: #4F4C4B
@@ -118,6 +123,98 @@ export default {
   margin: 30px 15px
   display: inline-block
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
+
+@mixin cancel_box
+  display: none
+  position: absolute
+  top: -15px
+  right: -15px
+  width: 30px
+  height: 30px
+  background-color: #fff
+  border-radius: 50%
+  cursor: pointer
+  transition: display 0.5s
+  z-index: 10
+  box-shadow: 0 0 5px 0 #000
+
+@mixin crawler_picture
+  width: 100%
+  height: 100%
+  position: absolute
+  background-size: cover
+  transition: 0.3s
+
+@mixin book_button
+  width: 42px
+  height: 42px
+  border-radius: 50%
+  position: absolute
+  left: 15px
+  bottom: -50px
+  background-color: #fff
+  color: #EB5E00
+  cursor: pointer
+  transition: bottom 0.3s
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
+
+@mixin crawler_article_title
+  font-size: 18px
+  line-height: 120%
+  margin-top: 0
+  margin-bottom: 5px
+
+@mixin crawler_keywords
+  color: grey
+  font-size: 12px
+  font-weight: bold
+
+@mixin crawler_author_avatar
+  width: 40px
+  height: 40px
+  position: absolute
+  top: 50%
+  left: 20px
+  transform: translateY(-50%)
+  border-radius: 50%
+  background-size: cover
+  border: 2px solid white
+  z-index: 2
+
+@mixin omit_description
+  display: block
+  display: -webkit-box
+  max-width: 400px
+  height: $font-size*$line-height*$lines-to-show
+  font-size: $font-size
+  line-height: $line-height
+  -webkit-line-clamp: $lines-to-show
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+
+@mixin omit_author_name
+  display: inline-block
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  width: 100px
+
+@mixin crawler_bottom_bar
+  height: 5px
+  width: 100%
+  position: absolute
+  bottom: 0
+  left: 0
+  background-color: #10E096
+  border-radius: 0 0 5px 5px
+
+*
+  position: relative
+  vertical-align: middle
+
+.articleBox
+  +crawler_box
   &:hover
     .top .bookbtn
       bottom: 10px
@@ -126,18 +223,7 @@ export default {
     .cancelBtn
       display: block
   .cancelBtn
-    display: none
-    position: absolute
-    top: -15px
-    right: -15px
-    width: 30px
-    height: 30px
-    background-color: #fff
-    border-radius: 50%
-    cursor: pointer
-    transition: display 0.5s
-    z-index: 10
-    box-shadow: 0 0 5px 0 #000
+    +cancel_box
     i
       position: absolute
       top: 50%
@@ -148,23 +234,9 @@ export default {
     overflow: hidden
     border-radius: 5px 5px 0 0
     .articlePicture
-      width: 100%
-      height: 100%
-      position: absolute
-      background-size: cover
-      transition: 0.3s
+      +crawler_picture
     .bookbtn
-      width: 42px
-      height: 42px
-      border-radius: 50%
-      position: absolute
-      left: 15px
-      bottom: -50px
-      background-color: #fff
-      color: #EB5E00
-      cursor: pointer
-      transition: bottom 0.3s
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2)
+      +book_button
       &:hover
         background-color: #EB5E00
         color: white
@@ -178,45 +250,27 @@ export default {
     height: 150px
     padding: 15px
     border-bottom: 1px solid rgba(0,0,0,0.5)
-    .classtitle
-      font-size: 18px
-      line-height: 120%
-      margin-top: 0
-      margin-bottom: 5px
+    .articleTitle
+      +crawler_article_title
     .keyword
-      color: grey
-      font-size: 12px
-      font-weight: bold
+      +crawler_keywords
     p
       margin-top: 5px
+      +omit_description
   .bottom
     height: 80px
     .author
-      width: 40px
-      height: 40px
-      position: absolute
-      top: 50%
-      left: 20px
-      transform: translateY(-50%)
-      border-radius: 50%
-      background-size: cover
-      border: 2px solid white
-      z-index: 9
+      +crawler_author_avatar
     .authorName
       position: absolute
       top: 0
       left: 40px
+      +omit_author_name
     .authorTitle
       position: absolute
       top: 20px
     .bottomBar
-      height: 5px
-      width: 100%
-      position: absolute
-      bottom: 0
-      left: 0
-      background-color: #FB9678
-      border-radius: 0 0 5px 5px
+      +crawler_bottom_bar
 
 #category-search
   margin-top: 0
@@ -235,8 +289,5 @@ export default {
 .btn
   border: 1px solid #00c292
 
-.v-spinner
-  position: absolute
-  left: 50%
-  top: 50%
+
 </style>

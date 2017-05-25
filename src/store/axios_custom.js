@@ -2,13 +2,14 @@ import axios from 'axios'
 import {ACCESS_TOKEN} from './key.js'
 import {BASE_URL} from './api_config.js'
 import Qs from 'qs'
+import store from '../store'
 
 export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   paramsSerializer: function(params) {
    return Qs.stringify(params, {arrayFormat: 'repeat'})
   }
-  // headers: {'Authorization': 'Bearer 1b003b9d45be7bc6005c9e12d6aaf4346b035d8d'}
+  // headers: {'Authorization': 'Bearer 224cba7cd9e877bd1618ff78a8325b190401a846'}
 })
 
 axiosInstance.interceptors.request.use(request => {
@@ -46,6 +47,8 @@ axiosInstance.interceptors.response.use(function(response) {
         originalRequest.headers['Authorization'] = 'Bearer ' + accessToken
         return axios(originalRequest)
       })
+  } else if(error.response.status === 403) {
+    store.dispatch('logout')
   }
 
   return Promise.reject(error)

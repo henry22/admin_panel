@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      account: 'getAccount'
+      account: 'getUser'
     })
   }
 }

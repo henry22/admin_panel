@@ -7,11 +7,11 @@ import CategoriesView from './components/Categories'
 
 const routes = [
   {
-    path: '/login',
+    path: '/console/login',
     component: LoginView
   },
   {
-    path: '/',
+    path: '/console',
     component: DashboardView,
     meta: { requiresAuth: true },
     children: [

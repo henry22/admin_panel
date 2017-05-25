@@ -93,6 +93,39 @@ export default {
 
 
 <style lang="sass" scoped>
+
+@mixin add_button
+  display: block
+  float: right
+  width: 40px
+  height: 40px
+  background: #32ebc7
+  border-radius: 50%
+  cursor: pointer
+  position: relative
+  transition: transform .2s ease-in-out, background .2s ease-in-out
+
+@mixin plus_icon
+  display: block
+  height: 2px
+  width: 16px
+  background: #fff
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+
+@mixin plus_icon_after
+  content: ''
+  display: block
+  height: 16px
+  width: 2px
+  background: #fff
+  position: absolute
+  top: 50%
+  left: 50%
+  margin: -8px -1px
+
 #avatar
   width: 40%
   height: 40%
@@ -110,54 +143,26 @@ export default {
   background-color: #3498DB
   border: none
   color: #fff
-
-#editButton:hover
-  background-color: #2980B9
+  &:hover
+    background-color: #2980B9
 
 .plus-icon
-  display: block
-  height: 2px
-  width: 16px
-  background: #fff
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-
-.plus-icon:after
-  content: ''
-  display: block
-  height: 16px
-  width: 2px
-  background: #fff
-  position: absolute
-  top: 50%
-  left: 50%
-  margin: -8px -1px
+  +plus_icon
+  &:after
+    +plus_icon_after
 
 .add-button
-  display: block
-  float: right
-  width: 40px
-  height: 40px
-  background: #32ebc7
-  border-radius: 50%
-  cursor: pointer
-  position: relative
-  transition: transform .2s ease-in-out, background .2s ease-in-out
+  +add_button
+  &:hover
+    transform: scale(1.25)
+  &:hover + .label
+    opacity: 1
+    visibilty: visible
+    transform: translateX(0)
+  &:active
+    transform: scale(0.8)
 
-.add-button:hover
-  transform: scale(1.25)
-
-.add-button:hover + .label
-  opacity: 1
-  visibilty: visible
-  transform: translateX(0)
-
-.add-button:active
-  transform: scale(0.8)
-
-.searchBtn 
+.searchBtn
   position: absolute
   top: 0
   right: 0
