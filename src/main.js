@@ -36,7 +36,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!store.getters.loggedIn) {
       next({
-        path: '/login'
+        path: '/console/login'
       })
       NProgress.done()
     } else {

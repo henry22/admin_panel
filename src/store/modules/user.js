@@ -3,8 +3,8 @@ import {axiosInstance} from '../axios_custom.js'
 import {router} from '../../main.js'
 import * as types from '../mutations_type.js'
 import {IS_LOGGEDIN} from '../key.js'
-import {REDIRECT_PATH} from '../path.js'
-import {LOGIN_PATH} from '../path.js'
+// import {REDIRECT_PATH} from '../path.js'
+// import {LOGIN_PATH} from '../path.js'
 
 const state = {
   user: {},
@@ -33,10 +33,10 @@ const mutations = {
     if(isLoggedIn) {
       window.localStorage.setItem(IS_LOGGEDIN, isLoggedIn)
       state.login = isLoggedIn
-      router.push(REDIRECT_PATH)
+      router.push('/console/categories')
     } else {
       window.localStorage.clear()
-      router.push(LOGIN_PATH)
+      router.push('/console/login')
     }
   },
   [types.SET_ACCOUNT](state, account) {
