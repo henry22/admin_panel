@@ -125,6 +125,7 @@ const actions = {
             }
           })
             .then((response) => {
+              console.log(response)
               commit(types.SET_PARSER, response)
             })
             .catch((error) => console.log(error))

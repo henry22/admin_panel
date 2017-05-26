@@ -17,7 +17,7 @@ export default {
 }
 
 $(document).ready(function(){
-  $('head').append('<link rel="stylesheet" href="../../static/plugins/bower_components/dropify/dist/css/dropify.min.css" type="text/css" />');
+  $('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" type="text/css" />');
   $('.dropify').dropify();
 });
 </script>
