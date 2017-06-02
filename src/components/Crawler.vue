@@ -36,12 +36,9 @@
               <p>{{article.desc.substr(0, 40)}}...</p>
             </div>
             <div class="bottom">
-              <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
-                <div class="authorName">
-                  {{article.author}}
-                  <div class="authorTitle"></div>
-                </div>
-              </div>
+              <div class="author" :style="'background-image: url(' + article.author_avatar + ')'"></div>
+              <div class="authorName">{{article.author}}</div>
+              <div class="authorTitle">{{article.from}}</div>
               <div class="bottomBar"></div>
             </div>
           </div>
@@ -92,10 +89,10 @@ export default {
       this.searchUrl = ''
     },
     showKeywords: function (keywords) {
-      try {
+      if(keywords === null) {
+        return ''
+      } else {
         return keywords.join(',').replace(/,/g, ' #').substr(0, 20)
-      } catch(error) {
-        console.log(error)
       }
     }
   },
@@ -193,12 +190,13 @@ $lines-to-show: 3
   overflow: hidden
   text-overflow: ellipsis
 
-@mixin omit_author_name
+@mixin omit_author
   display: inline-block
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  width: 100px
+  width: calc(100% - 80px)
+  text-align: left
 
 @mixin crawler_bottom_bar
   height: 5px
@@ -247,7 +245,7 @@ $lines-to-show: 3
         transform: translate(-50%, -50%)
         font-size: 22px
   .middle
-    height: 150px
+    height: 100%
     padding: 15px
     border-bottom: 1px solid rgba(0,0,0,0.5)
     .articleTitle
@@ -258,17 +256,20 @@ $lines-to-show: 3
       margin-top: 5px
       +omit_description
   .bottom
-    height: 80px
+    height: 100%
+    padding: 40px
     .author
       +crawler_author_avatar
     .authorName
       position: absolute
-      top: 0
-      left: 40px
-      +omit_author_name
+      top: 20px
+      left: 60px
+      +omit_author
     .authorTitle
       position: absolute
-      top: 20px
+      top: 40px
+      left: 60px
+      +omit_author
     .bottomBar
       +crawler_bottom_bar
 
@@ -288,6 +289,4 @@ $lines-to-show: 3
 
 .btn
   border: 1px solid #00c292
-
-
 </style>

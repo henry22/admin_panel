@@ -8,8 +8,8 @@ export const axiosInstance = axios.create({
   baseURL: BASE_URL,
   paramsSerializer: function(params) {
    return Qs.stringify(params, {arrayFormat: 'repeat'})
- }
-  // headers: {'Authorization': 'Bearer 25d4ea004e71bb0b98d98c10b66d37aedab07468'}
+  }
+  // headers: {'Authorization': 'Bearer fb20f3d5bd2aea484034ec3dd11d98d964c74bf8'}
 })
 
 axiosInstance.interceptors.request.use(request => {

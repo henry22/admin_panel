@@ -22,16 +22,13 @@
             </div>
             <div class="middle">
               <h1 class="articleTitle">{{article.title.substr(0, 40)}}</h1>
-              <span class="keyword">{{article.keywords.join(',').replace(/,/g, ' #').substr(0, 20)}}</span>
+              <span class="keyword">{{article.keywords}}</span>
               <p>{{article.desc.substr(0, 60)}}...</p>
             </div>
             <div class="bottom">
-              <div class="author" :style="'background-image: url(' + article.author_avatar + ')'">
-                <div class="authorName">
-                  {{article.author}}
-                  <div class="authorTitle"></div>
-                </div>
-              </div>
+              <div class="author" :style="'background-image: url(' + article.author_avatar + ')'"></div>
+              <div class="authorName">{{article.author}}</div>
+              <div class="authorTitle">{{article.from}}</div>
             </div>
           </div>
         </div>
@@ -148,12 +145,12 @@ $lines-to-show: 3
   overflow: hidden
   text-overflow: ellipsis
 
-@mixin omit_author_name
+@mixin omit_author
   display: inline-block
   overflow: hidden
   text-overflow: ellipsis
   white-space: nowrap
-  width: 100px
+  width: calc(100% - 80px)
 
 #articles-search
   border: 1px solid #4c5667
@@ -209,18 +206,20 @@ $lines-to-show: 3
       +omit_description
   .bottom
     height: 100%
-    padding: 30px
+    padding: 40px
     background-color: #F9F9F9
     border-radius: 0 0 5px 5px
     .author
       +author_avatar
     .authorName
       position: absolute
-      top: 0
-      left: 40px
-      +omit_author_name
+      top: 20px
+      left: 60px
+      +omit_author
     .authorTitle
       position: absolute
-      top: 20px
+      top: 40px
+      left: 60px
+      +omit_author
 
 </style>

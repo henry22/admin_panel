@@ -65,6 +65,10 @@ const mutations = {
 
     article.from = typeString(ogp, 'og:url')
 
+    if (article.from !== '' && !article.from.startsWith('http')) {
+      article.from = 'https:' + article.from
+    }
+
     article.author = typeString(seo, 'author')
 
     article.author_avatar = typeString(seo, 'author-avatar-20')
@@ -79,6 +83,8 @@ const mutations = {
     if(seo.hasOwnProperty('keywords')) {
       let keywordString = seo['keywords'][0]
       article.keywords = keywordString.split(/[,、]/g)
+    } else {
+      article.keywords = seo['news_keywords'][0].split(/[,、]/g)
     }
 
     if(typeof article !== 'undefined' && typeof content.reference !== 'undefined') {
@@ -125,7 +131,9 @@ const actions = {
             }
           })
             .then((response) => {
-              console.log(response)
+              if(typeof response.data.ogp['og:url'] === 'undefined') {
+                response.data.ogp['og:url'] = [articleUrl]
+              }
               commit(types.SET_PARSER, response)
             })
             .catch((error) => console.log(error))
