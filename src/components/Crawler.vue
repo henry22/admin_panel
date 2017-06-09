@@ -8,7 +8,7 @@
               <li>
                 <form role="search" class="app-search hidden-xs" v-on:submit.prevent="search">
                     <input type="text" placeholder="Type URL..." class="form-control" id="category-search" v-model="searchUrl" @keyup.enter="search(searchUrl)">
-                    <button type="submit" class="searchBtn" @click="search(searchUrl)"><i class="fa fa-search"></i></button>
+                    <button type="submit" class="searchBtn" @click.stop.prevent="search(searchUrl)"><i class="fa fa-search"></i></button>
                 </form>
               </li>
             </ul>
@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     search(url) {
+      console.log(url)
       if(url !== '') {
         this.$Progress.start()
         this.$store.dispatch('setArticle')
@@ -89,7 +90,7 @@ export default {
       this.searchUrl = ''
     },
     showKeywords: function (keywords) {
-      if(keywords === null) {
+      if(keywords === null || typeof keywords === 'undefined') {
         return ''
       } else {
         return keywords.join(',').replace(/,/g, ' #').substr(0, 20)

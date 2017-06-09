@@ -83,8 +83,10 @@ const mutations = {
     if(seo.hasOwnProperty('keywords')) {
       let keywordString = seo['keywords'][0]
       article.keywords = keywordString.split(/[,、]/g)
-    } else {
+    } else if(seo.hasOwnProperty('news_keywords')) {
       article.keywords = seo['news_keywords'][0].split(/[,、]/g)
+    } else {
+      article.keywords = null
     }
 
     if(typeof article !== 'undefined' && typeof content.reference !== 'undefined') {
